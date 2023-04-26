@@ -4,24 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Introduction | 00-intro.knit</title>
-  <meta name="description" content="" />
+  <title>Predicción de la venta de vehiculos en Colombia</title>
+  <meta name="description" content="Asignatura: Series de Tiempo" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Introduction | 00-intro.knit" />
+  <meta property="og:title" content="Predicción de la venta de vehiculos en Colombia" />
   <meta property="og:type" content="book" />
   
-  
+  <meta property="og:description" content="Asignatura: Series de Tiempo" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Introduction | 00-intro.knit" />
+  <meta name="twitter:title" content="Predicción de la venta de vehiculos en Colombia" />
   
-  
+  <meta name="twitter:description" content="Asignatura: Series de Tiempo" />
   
 
+<meta name="author" content="Julieth Cerón, Miguel Rodríguez y Emerson Trujillo" />
 
 
+<meta name="date" content="2023-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -29,7 +31,7 @@
   
   
 
-
+<link rel="next" href="Justifi.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -70,10 +72,23 @@
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path=""><a href="#intro"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path=""><a href="#descripción-de-las-variables-del-dataset-elegido"><i class="fa fa-check"></i><b>1.1</b> Descripción de las variables del dataset elegido</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#descripción-de-las-variables-del-dataset-elegido"><i class="fa fa-check"></i><b>1.1</b> Descripción de las variables del dataset elegido</a></li>
 </ul></li>
+<li class="chapter" data-level="2" data-path="Justifi.html"><a href="Justifi.html"><i class="fa fa-check"></i><b>2</b> Justificación</a></li>
+<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="methods.html"><a href="methods.html#math-example"><i class="fa fa-check"></i><b>4.1</b> math example</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -86,7 +101,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicción de la venta de vehiculos en Colombia</a>
           </h1>
         </div>
 
@@ -94,10 +109,13 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<!--bookdown:title:end-->
-<!--bookdown:title:start-->
+<div id="header">
+<h1 class="title">Predicción de la venta de vehiculos en Colombia</h1>
+<p class="author"><em>Julieth Cerón, Miguel Rodríguez y Emerson Trujillo</em></p>
+<p class="date"><em>2023-04-25</em></p>
+</div>
 <div id="intro" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction<a href="#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Chapter 1</span> Introduction<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>El análisis de series de tiempo de venta de vehículos puede proporcionar información valiosa sobre las tendencias y patrones en la demanda de vehículos. Aquí hay algunos pasos generales que se pueden seguir para analizar una serie de tiempo de venta de vehículos:</p>
 <p><strong>• Recopilar datos:</strong> Lo primero que se debe hacer es recopilar datos históricos sobre las ventas de vehículos en un período de tiempo determinado. Estos datos pueden incluir el número de vehículos vendidos por mes, trimestre, año, región geográfica, marca y modelo, entre otros.</p>
 <p><strong>• Visualizar los datos:</strong> Una vez que se han recopilado los datos, es importante visualizarlos en una gráfica de línea o en un diagrama de puntos para identificar patrones y tendencias. La visualización de los datos puede proporcionar una visión general de la serie de tiempo, permitiendo identificar los picos y los valles y los cambios en la tendencia a lo largo del tiempo.</p>
@@ -107,7 +125,7 @@
 <p><strong>• Modelar y predecir:</strong> Finalmente, se puede utilizar la información obtenida del análisis de series de tiempo para modelar y predecir las ventas futuras de vehículos. Esto puede ayudar a las empresas a planificar su producción y comercialización y ajustar sus estrategias de negocio para maximizar las ventas y minimizar los costos.</p>
 <p>La información que se utilizará en el transcurso de la asignatura es de acceso público, ya que es generada por entidades como el DANE, Banco de la República, Fedesarrollo, Fenalco y la ANDI. En la tabla 1 se describen las variables que se incluyen en el dataset de análisis.</p>
 <div id="descripción-de-las-variables-del-dataset-elegido" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Descripción de las variables del dataset elegido<a href="#descripción-de-las-variables-del-dataset-elegido" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">1.1</span> Descripción de las variables del dataset elegido<a href="intro.html#descripción-de-las-variables-del-dataset-elegido" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><img src="_bookdown_files/01-intro_files/figure-html/datos_SeriesPrediccion.png"></p>
 <table>
 <caption><span id="tab:nice-tab">Table 1.1: </span>Tabla de Datos</caption>
@@ -358,6 +376,7 @@
 </tr>
 </tbody>
 </table>
+
 </div>
 </div>
             </section>
@@ -366,7 +385,7 @@
         </div>
       </div>
 
-
+<a href="Justifi.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -397,7 +416,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/%s",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/00-intro.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -408,8 +427,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
-"search": false,
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -417,6 +439,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
