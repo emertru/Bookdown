@@ -1,21 +1,38 @@
 # Introduction {#intro}
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
+El análisis de series de tiempo de venta de vehículos puede proporcionar información valiosa sobre las tendencias y patrones en la demanda de vehículos. Aquí hay algunos pasos generales que se pueden seguir para analizar una serie de tiempo de venta de vehículos:
 
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+**•	Recopilar datos:** Lo primero que se debe hacer es recopilar datos históricos sobre las ventas de     vehículos en un período de tiempo determinado. Estos datos pueden incluir el número de vehículos    vendidos por mes, trimestre, año, región geográfica, marca y modelo, entre otros.
 
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
+**•	Visualizar los datos:** Una vez que se han recopilado los datos, es importante visualizarlos en una   gráfica de línea o en un diagrama de puntos para identificar patrones y tendencias. La              visualización de los datos puede proporcionar una visión general de la serie de tiempo,             permitiendo identificar los picos y los valles y los cambios en la tendencia a lo largo del tiempo.
 
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+**•	Análisis de estacionalidad:** En el análisis de series de tiempo, es común que exista un patrón estacional en los datos, lo que significa que las ventas pueden ser más altas en ciertos meses o épocas del año. Identificar y modelar la estacionalidad puede ayudar a comprender las fluctuaciones en las ventas y mejorar las predicciones futuras.
 
-```{r nice-tab, tidy=FALSE}
+**•	Identificar tendencias y patrones:** Además de la estacionalidad, es importante identificar cualquier tendencia o patrón en los datos. Por ejemplo, puede haber una tendencia general de aumento o disminución de las ventas de vehículos en el tiempo, o puede haber patrones recurrentes a largo plazo que afectan las ventas.
+
+**•	Realizar análisis de causalidad:** El análisis de causalidad implica identificar los factores que pueden estar contribuyendo a las tendencias y patrones en los datos. Por ejemplo, pueden existir factores económicos, demográficos o de marketing que estén influyendo en la demanda de vehículos.
+
+**• Modelar y predecir:** Finalmente, se puede utilizar la información obtenida del análisis de series de tiempo para modelar y predecir las ventas futuras de vehículos. Esto puede ayudar a las empresas a planificar su producción y comercialización y ajustar sus estrategias de negocio para maximizar las ventas y minimizar los costos.
+
+La información que se utilizará en el transcurso de la asignatura es de acceso público, ya que es generada por entidades como el DANE, Banco de la República, Fedesarrollo, Fenalco y la ANDI. En la tabla 1 se describen las variables que se incluyen en el dataset de análisis.
+
+
+## Descripción de las variables del dataset elegido
+
+
+
+ <img src="C:\Users\portatil\Desktop\Data\EME\Maestría Ciencia de Datos\Semestre 3\Electiva_Series_De_Tiempo\bookdown-demo-main\bookdown\_bookdown_files\01-intro_files\figure-html\datos_SeriesPrediccion.png">
+
+
+
+```{r nice-tab, echo=FALSE, message=FALSE, warning=FALSE, tidy=FALSE}
+library(readxl)
+vehiculos <- read_excel("C:/Users/portatil/DatosR/vehiculos.xlsx")
+
 knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
+  head(vehiculos, 20),caption = 'Tabla de Datos',
   booktabs = TRUE
 )
 ```
 
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
+

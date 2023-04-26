@@ -6,4 +6,4 @@ Es importante resaltar que hacer un seguimiento activo a la venta de vehículos 
 
 El pronostico de esta variable permitirá que las empresas y tomadores de decisiones en el ámbito privado o público puedan identificar oportunidades de mercado y tomar decisiones estratégicas, como el lanzamiento de nuevos productos y servicios que satisfagan las necesidades y deseos de los consumidores y, diseñar programas y políticas que fomenten un consumo más sostenible y equitativo.
  
-La información que se utilizará en el transcurso de la asignatura es de acceso público, ya que es generada por entidades como el DANE, Banco de la República, Fedesarrollo, Fenalco y la ANDI. En la tabla 1 se describen las variables que se incluyen en el dataset de análisis. 
+

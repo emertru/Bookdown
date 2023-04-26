@@ -4,20 +4,20 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Introduction | Predicción de la venta de vehiculos en Colombia</title>
-  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <title>Predicción de la venta de vehiculos en Colombia</title>
+  <meta name="description" content="Asignatura: Series de Tiempo" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Introduction | Predicción de la venta de vehiculos en Colombia" />
+  <meta property="og:title" content="Predicción de la venta de vehiculos en Colombia" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta property="og:description" content="Asignatura: Series de Tiempo" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Introduction | Predicción de la venta de vehiculos en Colombia" />
+  <meta name="twitter:title" content="Predicción de la venta de vehiculos en Colombia" />
   
-  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:description" content="Asignatura: Series de Tiempo" />
   
 
 <meta name="author" content="Julieth Cerón, Miguel Rodríguez y Emerson Trujillo" />
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
+
 <link rel="next" href="Justifi.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -54,93 +54,7 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -158,20 +72,22 @@ div.csl-indent {
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="Justifi.html"><a href="Justifi.html"><i class="fa fa-check"></i><b>3</b> Justificación</a></li>
-<li class="chapter" data-level="4" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>4</b> Literature</a></li>
-<li class="chapter" data-level="5" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>5</b> Methods</a>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="methods.html"><a href="methods.html#math-example"><i class="fa fa-check"></i><b>5.1</b> math example</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#descripción-de-las-variables-del-dataset-elegido"><i class="fa fa-check"></i><b>1.1</b> Descripción de las variables del dataset elegido</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>6</b> Applications</a>
+<li class="chapter" data-level="2" data-path="Justifi.html"><a href="Justifi.html"><i class="fa fa-check"></i><b>2</b> Justificación</a></li>
+<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>6.1</b> Example one</a></li>
-<li class="chapter" data-level="6.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>6.2</b> Example two</a></li>
+<li class="chapter" data-level="4.1" data-path="methods.html"><a href="methods.html#math-example"><i class="fa fa-check"></i><b>4.1</b> math example</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>7</b> Final Words</a></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -193,187 +109,274 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Introduction<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="intro.html#intro">2</a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="methods.html#methods">5</a>.</p>
-<p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))</span>
-<span id="cb1-2"><a href="intro.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure, <span class="at">type =</span> <span class="st">&#39;b&#39;</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:nice-fig"></span>
-<img src="bookdown-demo_files/figure-html/nice-fig-1.png" alt="Here is a nice figure!" width="80%" />
-<p class="caption">
-Figure 2.1: Here is a nice figure!
-</p>
+<div id="header">
+<h1 class="title">Predicción de la venta de vehiculos en Colombia</h1>
+<p class="author"><em>Julieth Cerón, Miguel Rodríguez y Emerson Trujillo</em></p>
+<p class="date"><em>2023-04-25</em></p>
 </div>
-<p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="intro.html#fig:nice-fig">2.1</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="intro.html#tab:nice-tab">2.1</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(iris, <span class="dv">20</span>), <span class="at">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
-<span id="cb2-3"><a href="intro.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
-<span id="cb2-4"><a href="intro.html#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div id="intro" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El análisis de series de tiempo de venta de vehículos puede proporcionar información valiosa sobre las tendencias y patrones en la demanda de vehículos. Aquí hay algunos pasos generales que se pueden seguir para analizar una serie de tiempo de venta de vehículos:</p>
+<p><strong>• Recopilar datos:</strong> Lo primero que se debe hacer es recopilar datos históricos sobre las ventas de vehículos en un período de tiempo determinado. Estos datos pueden incluir el número de vehículos vendidos por mes, trimestre, año, región geográfica, marca y modelo, entre otros.</p>
+<p><strong>• Visualizar los datos:</strong> Una vez que se han recopilado los datos, es importante visualizarlos en una gráfica de línea o en un diagrama de puntos para identificar patrones y tendencias. La visualización de los datos puede proporcionar una visión general de la serie de tiempo, permitiendo identificar los picos y los valles y los cambios en la tendencia a lo largo del tiempo.</p>
+<p><strong>• Análisis de estacionalidad:</strong> En el análisis de series de tiempo, es común que exista un patrón estacional en los datos, lo que significa que las ventas pueden ser más altas en ciertos meses o épocas del año. Identificar y modelar la estacionalidad puede ayudar a comprender las fluctuaciones en las ventas y mejorar las predicciones futuras.</p>
+<p><strong>• Identificar tendencias y patrones:</strong> Además de la estacionalidad, es importante identificar cualquier tendencia o patrón en los datos. Por ejemplo, puede haber una tendencia general de aumento o disminución de las ventas de vehículos en el tiempo, o puede haber patrones recurrentes a largo plazo que afectan las ventas.</p>
+<p><strong>• Realizar análisis de causalidad:</strong> El análisis de causalidad implica identificar los factores que pueden estar contribuyendo a las tendencias y patrones en los datos. Por ejemplo, pueden existir factores económicos, demográficos o de marketing que estén influyendo en la demanda de vehículos.</p>
+<p><strong>• Modelar y predecir:</strong> Finalmente, se puede utilizar la información obtenida del análisis de series de tiempo para modelar y predecir las ventas futuras de vehículos. Esto puede ayudar a las empresas a planificar su producción y comercialización y ajustar sus estrategias de negocio para maximizar las ventas y minimizar los costos.</p>
+<p>La información que se utilizará en el transcurso de la asignatura es de acceso público, ya que es generada por entidades como el DANE, Banco de la República, Fedesarrollo, Fenalco y la ANDI. En la tabla 1 se describen las variables que se incluyen en el dataset de análisis.</p>
+<div id="descripción-de-las-variables-del-dataset-elegido" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Descripción de las variables del dataset elegido<a href="intro.html#descripción-de-las-variables-del-dataset-elegido" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="_bookdown_files/01-intro_files/figure-html/datos_SeriesPrediccion.png"></p>
 <table>
-<caption><span id="tab:nice-tab">Table 2.1: </span>Here is a nice table!</caption>
+<caption><span id="tab:nice-tab">Table 1.1: </span>Tabla de Datos</caption>
+<colgroup>
+<col width="16%" />
+<col width="9%" />
+<col width="7%" />
+<col width="15%" />
+<col width="15%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="12%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="right">Sepal.Length</th>
-<th align="right">Sepal.Width</th>
-<th align="right">Petal.Length</th>
-<th align="right">Petal.Width</th>
-<th align="left">Species</th>
+<th align="left">…1</th>
+<th align="right">VEH</th>
+<th align="right">INF</th>
+<th align="right">ISE</th>
+<th align="right">ISE_COM</th>
+<th align="right">ICC</th>
+<th align="right">IEC</th>
+<th align="right">ICE</th>
+<th align="right">TRM</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<td align="left">2014-01-01</td>
+<td align="right">20115</td>
+<td align="right">2.13</td>
+<td align="right">89.38968</td>
+<td align="right">86.54366</td>
+<td align="right">27.3</td>
+<td align="right">28.2</td>
+<td align="right">25.9</td>
+<td align="right">1960.41</td>
 </tr>
 <tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<td align="left">2014-02-01</td>
+<td align="right">23744</td>
+<td align="right">2.32</td>
+<td align="right">92.91968</td>
+<td align="right">90.38523</td>
+<td align="right">15.7</td>
+<td align="right">14.8</td>
+<td align="right">17.2</td>
+<td align="right">2040.51</td>
 </tr>
 <tr class="odd">
+<td align="left">2014-03-01</td>
+<td align="right">24075</td>
+<td align="right">2.51</td>
+<td align="right">95.65122</td>
+<td align="right">91.39628</td>
+<td align="right">18.5</td>
+<td align="right">18.0</td>
+<td align="right">19.3</td>
+<td align="right">2022.19</td>
+</tr>
+<tr class="even">
+<td align="left">2014-04-01</td>
+<td align="right">26128</td>
+<td align="right">2.72</td>
+<td align="right">92.32801</td>
+<td align="right">95.26309</td>
+<td align="right">18.5</td>
+<td align="right">16.2</td>
+<td align="right">21.8</td>
+<td align="right">1939.27</td>
+</tr>
+<tr class="odd">
+<td align="left">2014-05-01</td>
+<td align="right">26865</td>
+<td align="right">2.93</td>
+<td align="right">95.56390</td>
+<td align="right">93.78647</td>
+<td align="right">23.9</td>
+<td align="right">22.7</td>
+<td align="right">25.8</td>
+<td align="right">1915.46</td>
+</tr>
+<tr class="even">
+<td align="left">2014-06-01</td>
+<td align="right">22974</td>
+<td align="right">2.79</td>
+<td align="right">95.43544</td>
+<td align="right">94.05604</td>
+<td align="right">26.5</td>
+<td align="right">28.6</td>
+<td align="right">23.4</td>
+<td align="right">1888.10</td>
+</tr>
+<tr class="odd">
+<td align="left">2014-07-01</td>
+<td align="right">27650</td>
+<td align="right">2.89</td>
+<td align="right">97.57987</td>
+<td align="right">100.33581</td>
+<td align="right">26.6</td>
+<td align="right">25.9</td>
+<td align="right">27.6</td>
+<td align="right">1858.40</td>
+</tr>
+<tr class="even">
+<td align="left">2014-08-01</td>
+<td align="right">27465</td>
+<td align="right">3.02</td>
+<td align="right">97.52460</td>
+<td align="right">95.69554</td>
+<td align="right">20.5</td>
+<td align="right">16.0</td>
+<td align="right">27.2</td>
+<td align="right">1899.07</td>
+</tr>
+<tr class="odd">
+<td align="left">2014-09-01</td>
+<td align="right">29528</td>
+<td align="right">2.86</td>
+<td align="right">98.39200</td>
+<td align="right">94.23638</td>
+<td align="right">17.5</td>
+<td align="right">16.2</td>
+<td align="right">19.4</td>
+<td align="right">1971.34</td>
+</tr>
+<tr class="even">
+<td align="left">2014-10-01</td>
+<td align="right">31386</td>
+<td align="right">3.29</td>
+<td align="right">98.34370</td>
+<td align="right">97.17163</td>
+<td align="right">21.7</td>
+<td align="right">20.9</td>
+<td align="right">22.8</td>
+<td align="right">2047.03</td>
+</tr>
+<tr class="odd">
+<td align="left">2014-11-01</td>
+<td align="right">25700</td>
+<td align="right">3.65</td>
+<td align="right">101.97067</td>
+<td align="right">102.50636</td>
+<td align="right">24.5</td>
+<td align="right">24.2</td>
+<td align="right">24.9</td>
+<td align="right">2127.25</td>
+</tr>
+<tr class="even">
+<td align="left">2014-12-01</td>
+<td align="right">40393</td>
+<td align="right">3.66</td>
+<td align="right">109.07255</td>
+<td align="right">119.93755</td>
+<td align="right">22.4</td>
+<td align="right">21.8</td>
+<td align="right">23.3</td>
+<td align="right">2344.23</td>
+</tr>
+<tr class="odd">
+<td align="left">2015-01-01</td>
+<td align="right">21241</td>
+<td align="right">3.82</td>
+<td align="right">92.03554</td>
+<td align="right">90.26399</td>
+<td align="right">17.9</td>
+<td align="right">18.1</td>
+<td align="right">17.7</td>
+<td align="right">2397.69</td>
+</tr>
+<tr class="even">
+<td align="left">2015-02-01</td>
+<td align="right">22871</td>
+<td align="right">4.36</td>
+<td align="right">95.19647</td>
+<td align="right">92.84614</td>
+<td align="right">14.0</td>
+<td align="right">14.0</td>
+<td align="right">13.9</td>
+<td align="right">2420.38</td>
+</tr>
+<tr class="odd">
+<td align="left">2015-03-01</td>
+<td align="right">24671</td>
+<td align="right">4.56</td>
+<td align="right">98.60194</td>
+<td align="right">94.88460</td>
+<td align="right">2.3</td>
+<td align="right">0.3</td>
+<td align="right">5.2</td>
+<td align="right">2586.58</td>
+</tr>
+<tr class="even">
+<td align="left">2015-04-01</td>
+<td align="right">21863</td>
+<td align="right">4.64</td>
+<td align="right">95.51865</td>
+<td align="right">96.84447</td>
+<td align="right">8.2</td>
+<td align="right">8.0</td>
+<td align="right">8.5</td>
+<td align="right">2495.36</td>
+</tr>
+<tr class="odd">
+<td align="left">2015-05-01</td>
+<td align="right">22525</td>
+<td align="right">4.41</td>
+<td align="right">98.91425</td>
+<td align="right">96.47525</td>
+<td align="right">13.7</td>
+<td align="right">13.8</td>
+<td align="right">13.5</td>
+<td align="right">2439.09</td>
+</tr>
+<tr class="even">
+<td align="left">2015-06-01</td>
+<td align="right">22476</td>
+<td align="right">4.42</td>
+<td align="right">99.30745</td>
+<td align="right">97.80433</td>
+<td align="right">14.7</td>
+<td align="right">11.2</td>
+<td align="right">20.1</td>
+<td align="right">2554.94</td>
+</tr>
+<tr class="odd">
+<td align="left">2015-07-01</td>
+<td align="right">26595</td>
+<td align="right">4.46</td>
+<td align="right">102.02717</td>
+<td align="right">103.78699</td>
+<td align="right">2.6</td>
+<td align="right">2.2</td>
+<td align="right">3.3</td>
+<td align="right">2731.90</td>
+</tr>
+<tr class="even">
+<td align="left">2015-08-01</td>
+<td align="right">23208</td>
+<td align="right">4.74</td>
+<td align="right">101.20712</td>
+<td align="right">99.29043</td>
+<td align="right">-0.4</td>
 <td align="right">4.7</td>
-<td align="right">3.2</td>
-<td align="right">1.3</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.6</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.0</td>
-<td align="right">3.6</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.7</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.6</td>
-<td align="right">3.4</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.0</td>
-<td align="right">3.4</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.4</td>
-<td align="right">2.9</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.7</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.8</td>
-<td align="right">3.4</td>
-<td align="right">1.6</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.8</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.3</td>
-<td align="right">3.0</td>
-<td align="right">1.1</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.8</td>
-<td align="right">4.0</td>
-<td align="right">1.2</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.7</td>
-<td align="right">4.4</td>
-<td align="right">1.5</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.3</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.7</td>
-<td align="right">3.8</td>
-<td align="right">1.7</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.8</td>
-<td align="right">1.5</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
+<td align="right">-8.0</td>
+<td align="right">3023.29</td>
 </tr>
 </tbody>
 </table>
-<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(<a href="#ref-R-bookdown" role="doc-biblioref">Xie 2023</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(<a href="#ref-xie2015" role="doc-biblioref">Xie 2015</a>)</span>.</p>
 
-</div>
-<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-xie2015" class="csl-entry">
-Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.
-</div>
-<div id="ref-R-bookdown" class="csl-entry">
-———. 2023. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.
 </div>
 </div>
             </section>
@@ -381,8 +384,8 @@ Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="Justifi.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+<a href="Justifi.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

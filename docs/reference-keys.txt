@@ -10,3 +10,6 @@ example-one
 example-two
 final-words
 Justifi
+tabla-1.-descripción-de-las-variables-de-dataset-elegido
+descripción-de-las-variables-de-dataset-elegido
+descripción-de-las-variables-del-dataset-elegido
