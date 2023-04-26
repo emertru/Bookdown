@@ -2,7 +2,7 @@
 title: "Predicción de la venta de vehiculos en Colombia"
 author: "Julieth Cerón, Miguel Rodríguez y Emerson Trujillo"
 date: "`r Sys.Date()`"
-##site: bookdown::bookdown_site
+site: bookdown::bookdown_site
 ##output: bookdown::gitbook
 documentclass: book
 ##bibliography: [book.bib, packages.bib]
