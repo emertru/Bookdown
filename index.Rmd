@@ -1,6 +1,6 @@
 --- 
-title: "A Minimal Book Example"
-author: "Yihui Xie"
+title: "Predicción de la venta de vehiculos en Colombia"
+author: "Julieth Cerón, Miguel Rodríguez y Emerson Trujillo"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
