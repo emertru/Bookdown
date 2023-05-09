@@ -17,6 +17,7 @@ El análisis de series de tiempo de venta de vehículos puede proporcionar infor
 La información que se utilizará en el transcurso de la asignatura es de acceso público, ya que es generada por entidades como el DANE, Banco de la República, Fedesarrollo, Fenalco y la ANDI. En la tabla 1 se describen las variables que se incluyen en el dataset de análisis.
 
 ## Descripción de las variables del dataset elegido
+
 <img src="datos_SeriesPrediccion.png"/>
 
 <img src="C:\Users\portatil\Desktop\Data\EME\Maestría Ciencia de Datos\Semestre 3\Electiva_Series_De_Tiempo\bookdown-demo-main\bookdown\_bookdown_files\01-intro_files\figure-html\datos_SeriesPrediccion.png"/>
