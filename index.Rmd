@@ -8,6 +8,6 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: emtrusi/bookdown
+github-repo: rstudio/bookdown-demo
 description: "Asignatura: Series de Tiempo"
 ---
