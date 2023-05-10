@@ -188,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Hipótesis</strong>
 <strong>H0:</strong> No hay autocorrelación de los residuos <strong>H1:</strong> Existe autocorrelación de los residuos</p>
 <p><strong>CONCLUSIÓN: Como el P-value (0.56) es mayor a 0.05 no se rechaza H0. En ese caso si se cumple la condición de los residuos, son ruido blanco (no se correlacionan los errores).</strong></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="validación-de-supuestos.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span>(autoarimaveh<span class="sc">$</span>residuals, <span class="at">lag =</span> <span class="dv">20</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="validación-de-supuestos.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span>(autoarimaveh<span class="sc">$</span>residuals, <span class="at">lag =</span> <span class="dv">20</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Box-Ljung test
 ## 

@@ -43,7 +43,7 @@ El pronostico de esta variable permitirá que las empresas y tomadores de decisi
 Primero, se llevará a cabo un análisis exploratorio de nuestra serie de interés "venta de vehículos (VEH)" para comprender mejor los datos y lograr identificar patrones y características importantes de esta variable. Así, se podran visualizar los datos y detectar patrones de tendencia, estacionalidad, ciclos, y ruido en la serie de tiempo. Esto es fundamental para elegir el modelo adecuado y para tomar decisiones informadas basadas en los datos de la serie.
 
 
-```{r include = TRUE, message=FALSE}
+```{r include = TRUE, message=FALSE, warning=FALSE}
 # Instalar y cargar librerias necesarias para el proceso
 
 library(fpp2)
@@ -65,7 +65,7 @@ Las variables de análisis es la venta de vehículos nuevos en Colombia. Son dat
 
 De acuerdo a la figura 1, se puede apreciar que el comercio de vehículos a nivel nacional en los dos último años se vió fuertemente afectado porla pandemia del Covid-19 y las restricciones de aislamiento y movilidad para contener el avance de la misma, especialmente durante el mes de abril 2020. En el año 2021 y 2022 se evidencia una fase de recuperación.
 
-```{r}
+```{r include = TRUE, message=FALSE, warning=FALSE}
 base <- read_excel("C:/Users/portatil/DatosR/vehiculos_2-3.xlsx")
 veh<-ts(base$VEH[1:110], frequency=12, start=c(2014,1))
 autoplot(veh,frequency=12,xlab="Años",ylab="No. de vehículos",main="Figura 1. Venta de vehículos en Colombia (original)") 
@@ -75,7 +75,7 @@ autoplot(veh,frequency=12,xlab="Años",ylab="No. de vehículos",main="Figura 1. 
 
 El cálculo del promedio móvil es una técnica común utilizada en el análisis de series de tiempo para suavizar los datos y reducir el ruido. El objetivo es reducir la variabilidad en los datos, lo que puede hacer que las tendencias subyacentes sean más visibles. En esta caso se usará un promedio móvil de orden 3 para no perder tanta información relevante, sobretdo en los últimos dos años de análisis (2021-2022) en donde la economia nacional sufrió un choque sin precendentes.  En la Figura 2. Se observa que el MA(3) suaviza la serie temporal original y elimina la mayoría de las fluctuaciones de corto plazo. Para finales del año 2022, se puede afirmar que la venta de vehículos refleja una tendencia decreciente.
 
-```{r include = TRUE, message=FALSE}
+```{r include = TRUE, message=FALSE, warning=FALSE}
 library(forecast)
 #Calcular promedio móvil de orden 3
 promovil<- ma(veh, order = 3)
@@ -100,7 +100,7 @@ Para saber cuántas veces debes rezagar una serie de tiempo, es importante anali
 La PACF es una medida de la correlación entre una observación y una observación retrasada, controlando el efecto de las observaciones intermedias. Un retraso significativo en la PACF puede indicar que ese número de retrasos es importante para explicar la serie de tiempo.
 
 
-```{r}
+```{r include = TRUE, message=FALSE, warning=FALSE}
 library(stats)
 pacf_veh<- pacf(veh)
 plot(pacf_veh)
@@ -108,7 +108,7 @@ plot(pacf_veh)
 
 En la gráfica de la PAFC anterior, se observa que un rezago es importante para explicar la serie. Por ende, a continuación aplicamos 1 reago a la serie original de vehículos:
 
-```{r}
+```{r include = TRUE, message=FALSE, warning=FALSE}
 library(stats)
 rez_veh <- stats::lag(veh, k = 1)
 plot(veh, main = "Serie original y rezagada")
@@ -124,7 +124,7 @@ Una forma útil de saber si la venta de vehículos tiene estacionalidad, es calc
 En este sentido, con la gráfica de ACF de la venta de vehículos que se muestra a continuación se afirma que existe un componente estacional en la venta de vehículos, es decir, por ejemplo que la venta de vehículos en Colombia incrementa en el mes de diciembre de cada año y disminuye en enero. Este comportamiento tiene una relación estrecha con la evolución del consumo, en donde, la temporada decembrina refleja un mayor gasto por parte de los hogares colombianos.
 
 
-```{r}
+```{r include = TRUE, message=FALSE, warning=FALSE}
 acf(veh, lag.max = 48)
 
 ```
@@ -151,7 +151,7 @@ Es importante descomponer las series de tiempo porque permite identificar los di
 Por último, *el componente irregular*, también conocido como ruido, es la parte de la serie que no se puede explicar por la tendencia y la estacionalidad, y puede ser causada por factores impredecibles y/o eventos aleatorios. En este caso,el covid19, un evento sin precedentes e inesperado.
 
 
-```{r}
+```{r include = TRUE, message=FALSE, warning=FALSE}
 
 # Utilizamos la función decompose (del paquete cargado previamente "STATS")
 library(stats)
@@ -183,7 +183,7 @@ Para validarlo, hacemos el **Test de Dickey Fuller:**. Este test se basa en una 
 
 Tras realizar la prueba aumentada de Dickey-Fuller (ADF), obtenemos un p-valor = 0.01. Como el p-valor < 0.05,  se rechaza H0. En conclusión, *la venta de vehículos es una variable Estacionaria*. 
 
-```{r,message=FALSE}
+```{r include = TRUE, message=FALSE, warning=FALSE}
 # Cargar el paquete tseries
 library(tseries)
 # Realizar prueba de raíz unitaria
@@ -226,7 +226,7 @@ m: número de períodos en una temporada
 *En resumen, el modelo ARIMA(1,0,0)(0,1,1)[12] es un modelo que utiliza la observación más reciente y la observación anterior para predecir la siguiente observación en la serie, y también tiene en cuenta la estacionalidad con una diferencia estacional de primer orden y una media móvil estacional de orden 1.*
 
 
-```{r, message=FALSE}
+```{r include = TRUE, message=FALSE, warning=FALSE}
 #Corremos la función auto.arima:
 autoarimaveh=auto.arima(veh)
 autoarimaveh
@@ -244,7 +244,7 @@ Con la prueba de Ljung-Box, se evalúa si hay o no  autocorrelación en los resi
 
 **CONCLUSIÓN: Como el P-value (0.56) es mayor a 0.05 no se rechaza H0. En ese caso si se cumple la condición de los residuos, son ruido blanco (no se correlacionan los errores).**
 
-```{r, message=FALSE}
+```{r include = TRUE, message=FALSE, warning=FALSE}
 
 Box.test(autoarimaveh$residuals, lag = 20, type = "Ljung-Box")
 
