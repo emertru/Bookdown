@@ -1,6 +1,6 @@
----
+--- 
 title: "Predicción de la venta de vehiculos en Colombia"
-author: "Julieth Cerón, Miguel Rodríguez y Emerson Trujillo"
+author: ""
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -11,3 +11,19 @@ link-citations: yes
 github-repo: rstudio/bookdown-demo
 description: "Asignatura: Series de Tiempo"
 ---
+
+ ***Presentación***
+ 
+
+ $Maestría$ $en$ $Ciencia$ $de$ $Datos$
+
+Asignatura: 
+
+ $Series$ $de$ $Tiempo$
+
+Integrantes:
+
+ **$Julieth$ $Cerón$, $Miguel$ $Rodríguez$ $y$ $Emerson$ $Trujillo$**
+ 
+ 
+ 

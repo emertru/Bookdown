@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Validación de Estacionariedad | Predicción de la venta de vehiculos en Colombia</title>
+  <title>Chapter 8 Evaluación del Modelo - MAE y RMSE | Predicción de la venta de vehiculos en Colombia</title>
   <meta name="description" content="Asignatura: Series de Tiempo" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Validación de Estacionariedad | Predicción de la venta de vehiculos en Colombia" />
+  <meta property="og:title" content="Chapter 8 Evaluación del Modelo - MAE y RMSE | Predicción de la venta de vehiculos en Colombia" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Asignatura: Series de Tiempo" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Validación de Estacionariedad | Predicción de la venta de vehiculos en Colombia" />
+  <meta name="twitter:title" content="Chapter 8 Evaluación del Modelo - MAE y RMSE | Predicción de la venta de vehiculos en Colombia" />
   
   <meta name="twitter:description" content="Asignatura: Series de Tiempo" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="extracción-de-señales.html"/>
-<link rel="next" href="diferenciación.html"/>
+<link rel="prev" href="validación-de-supuestos.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -181,32 +181,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="validación-de-estacionariedad" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Validación de Estacionariedad<a href="validación-de-estacionariedad.html#validación-de-estacionariedad" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Un modelo ARIMA requiere que la serie sea estacionaria</strong>. Se dice que una serie es estacionaria cuando su media, varianza y autocovarianza son invariantes en el tiempo.Esta suposición tiene un sentido intuitivo: dado que ARIMA usa retardos previos de series para modelar su comportamiento.</p>
-<p><strong>RECORDAR:</strong> En el paso anterior se observó graficamente que la serie original de la venta de vehículos tiene una tendencia y ademas no tiene media ni varianza constante.Con lo cual pudieramos afirmar que visualmente la serie pareciera ser NO ESTACIONARIA.</p>
-<p>Para validarlo, hacemos el <strong>Test de Dickey Fuller:</strong>. Este test se basa en una regresión lineal que incluye la propia serie de tiempo y sus rezagos.Las hipótesis respectivas son:</p>
-<p><strong>Contraste de hipótesis:</strong></p>
-<p><strong>H0:</strong> Serie No estacionaria: Hay raiz unitaria <strong>H1:</strong> Serie Estacionaria: No hay raiz unitaria</p>
-<p>Tras realizar la prueba aumentada de Dickey-Fuller (ADF), obtenemos un p-valor = 0.01. Como el p-valor &lt; 0.05, se rechaza H0. En conclusión, <em>la venta de vehículos es una variable Estacionaria</em>.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="validación-de-estacionariedad.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar el paquete tseries</span></span>
-<span id="cb23-2"><a href="validación-de-estacionariedad.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
-<span id="cb23-3"><a href="validación-de-estacionariedad.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizar prueba de raíz unitaria</span></span>
-<span id="cb23-4"><a href="validación-de-estacionariedad.html#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(veh)</span></code></pre></div>
-<pre><code>## 
-##  Augmented Dickey-Fuller Test
-## 
-## data:  veh
-## Dickey-Fuller = -3.973, Lag order = 4, p-value = 0.0131
-## alternative hypothesis: stationary</code></pre>
+<div id="evaluación-del-modelo---mae-y-rmse" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Evaluación del Modelo - MAE y RMSE<a href="evaluación-del-modelo---mae-y-rmse.html#evaluación-del-modelo---mae-y-rmse" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="extracción-de-señales.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="diferenciación.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="validación-de-supuestos.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

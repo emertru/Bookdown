@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Asignatura: Series de Tiempo" />
-  <meta name="github-repo" content="emtrusi/bookdown" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Predicción de la venta de vehiculos en Colombia" />
@@ -20,7 +20,7 @@
   <meta name="twitter:description" content="Asignatura: Series de Tiempo" />
   
 
-<meta name="author" content="Julieth Cerón, Miguel Rodríguez y Emerson Trujillo" />
+<meta name="author" content="" />
 
 
 <meta name="date" content="2023-05-09" />
@@ -31,7 +31,7 @@
   
   
 
-
+<link rel="next" href="intro.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -68,6 +68,25 @@
     <div class="book-summary">
       <nav role="navigation">
 
+<ul class="summary">
+<li><a href="./">Series de Tiempo</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Presentación</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#descripción-de-las-variables-del-dataset-elegido"><i class="fa fa-check"></i><b>2.1</b> Descripción de las variables del dataset elegido</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#justificación"><i class="fa fa-check"></i><b>2.2</b> Justificación</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#serie-original"><i class="fa fa-check"></i><b>2.3</b> Serie original</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#promedio-móvil"><i class="fa fa-check"></i><b>2.4</b> Promedio móvil</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#descomposición-de-las-series"><i class="fa fa-check"></i><b>2.5</b> Descomposición de las series</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#aplicación-del-modelo-arima"><i class="fa fa-check"></i><b>2.6</b> Aplicación del Modelo Arima</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#predicción-corto-plazo"><i class="fa fa-check"></i><b>2.7</b> Predicción corto plazo</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
 
       </nav>
     </div>
@@ -86,17 +105,24 @@
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">Predicción de la venta de vehiculos en Colombia</h1>
-<p class="author"><em>Julieth Cerón, Miguel Rodríguez y Emerson Trujillo</em></p>
+<p class="author"><em></em></p>
 <p class="date"><em>2023-05-09</em></p>
 </div>
+<div id="presentación" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Presentación<a href="index.html#presentación" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Asignatura:</p>
+<p><span class="math inline">\(Series\)</span> <span class="math inline">\(de\)</span> <span class="math inline">\(Tiempo\)</span></p>
+<p>Integrantes:</p>
+<p><strong><span class="math inline">\(Julieth\)</span> <span class="math inline">\(Cerón\)</span>, <span class="math inline">\(Miguel\)</span> <span class="math inline">\(Rodríguez\)</span> <span class="math inline">\(y\)</span> <span class="math inline">\(Emerson\)</span> <span class="math inline">\(Trujillo\)</span></strong></p>
 
+</div>
             </section>
 
           </div>
         </div>
       </div>
 
-
+<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -127,7 +153,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/%s",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -138,8 +164,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
-"search": false,
+"download": ["Series de Tiempo.pdf", "Series de Tiempo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -147,6 +176,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

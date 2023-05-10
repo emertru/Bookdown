@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Extracción de señales | Predicción de la venta de vehiculos en Colombia</title>
+  <meta name="description" content="Asignatura: Series de Tiempo" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Extracción de señales | Predicción de la venta de vehiculos en Colombia" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Asignatura: Series de Tiempo" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Extracción de señales | Predicción de la venta de vehiculos en Colombia" />
+  
+  <meta name="twitter:description" content="Asignatura: Series de Tiempo" />
+  
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2023-05-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-exploratorio-inicial.html"/>
+<link rel="next" href="validación-de-estacionariedad.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Series de Tiempo</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#descripción-de-las-variables-del-dataset-elegido"><i class="fa fa-check"></i><b>1.1</b> Descripción de las variables del dataset elegido</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#justificación"><i class="fa fa-check"></i><b>1.2</b> Justificación</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análisis-exploratorio-inicial.html"><a href="análisis-exploratorio-inicial.html"><i class="fa fa-check"></i><b>2</b> Análisis Exploratorio Inicial</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análisis-exploratorio-inicial.html"><a href="análisis-exploratorio-inicial.html#serie-original"><i class="fa fa-check"></i><b>2.1</b> Serie original</a></li>
+<li class="chapter" data-level="2.2" data-path="análisis-exploratorio-inicial.html"><a href="análisis-exploratorio-inicial.html#promedio-móvil"><i class="fa fa-check"></i><b>2.2</b> Promedio móvil</a></li>
+<li class="chapter" data-level="2.3" data-path="análisis-exploratorio-inicial.html"><a href="análisis-exploratorio-inicial.html#análisis-de-rezagos"><i class="fa fa-check"></i><b>2.3</b> Análisis de rezagos</a></li>
+<li class="chapter" data-level="2.4" data-path="análisis-exploratorio-inicial.html"><a href="análisis-exploratorio-inicial.html#estacionalidad"><i class="fa fa-check"></i><b>2.4</b> Estacionalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="extracción-de-señales.html"><a href="extracción-de-señales.html"><i class="fa fa-check"></i><b>3</b> Extracción de señales</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="extracción-de-señales.html"><a href="extracción-de-señales.html#descomposición-de-las-series"><i class="fa fa-check"></i><b>3.1</b> Descomposición de las series</a></li>
+<li class="chapter" data-level="3.2" data-path="extracción-de-señales.html"><a href="extracción-de-señales.html#aplicación-del-modelo-arima"><i class="fa fa-check"></i><b>3.2</b> Aplicación del Modelo Arima</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="validación-de-estacionariedad.html"><a href="validación-de-estacionariedad.html"><i class="fa fa-check"></i><b>4</b> Validación de Estacionariedad</a></li>
+<li class="chapter" data-level="5" data-path="diferenciación.html"><a href="diferenciación.html"><i class="fa fa-check"></i><b>5</b> Diferenciación</a></li>
+<li class="chapter" data-level="6" data-path="estimación-del-modelo-auto.html"><a href="estimación-del-modelo-auto.html"><i class="fa fa-check"></i><b>6</b> Estimación del modelo Auto.arima</a></li>
+<li class="chapter" data-level="7" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html"><i class="fa fa-check"></i><b>7</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#predicción-corto-plazo"><i class="fa fa-check"></i><b>7.1</b> Predicción corto plazo</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="evaluación-del-modelo---mae-y-rmse.html"><a href="evaluación-del-modelo---mae-y-rmse.html"><i class="fa fa-check"></i><b>8</b> Evaluación del Modelo - MAE y RMSE</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicción de la venta de vehiculos en Colombia</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="extracción-de-señales" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Extracción de señales<a href="extracción-de-señales.html#extracción-de-señales" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>La extracción de señales en series de tiempo es el proceso de identificar patrones, tendencias y características importantes en los datos de la serie temporal. Es una técnica común utilizada en análisis de series de tiempo para modelar el comportamiento de la serie, predecir valores futuros y entender las relaciones entre las variables.</p>
+<p>La extracción de señales incluye el análisis de tendencias, el análisis de ciclos, el análisis de estacionalidad, la identificación de puntos atípicos y la descomposición de series de tiempo.</p>
+<p>El objetivo de la extracción de señales es resumir la información en la serie de tiempo de una manera significativa y comprensible, lo que permite a los analistas y tomadores de decisiones identificar patrones y tendencias a largo plazo, así como patrones a corto plazo en los datos. La extracción de señales también puede ser útil para identificar la relación entre las variables de una serie de tiempo y cómo están cambiando a lo largo del tiempo.</p>
+<p>En resumen, la extracción de señales en series de tiempo es un proceso crítico para comprender el comportamiento de los datos a lo largo del tiempo y proporciona información valiosa para la toma de decisiones y la predicción de eventos futuros.</p>
+<div id="descomposición-de-las-series" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Descomposición de las series<a href="extracción-de-señales.html#descomposición-de-las-series" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Es importante descomponer las series de tiempo porque permite identificar los diferentes componentes que la conforman, es decir, la tendencia, la estacionalidad y la variabilidad aleatoria. Cada uno de estos componentes puede proporcionar información valiosa sobre el comportamiento de la serie a lo largo del tiempo y su relación con otros factores.</p>
+<p><em>La tendencia</em> indica que la venta de vehículos refleja un punto de quiebre en marzo 2020 generado por el impacto de la pandemia, luego se evidencia una tendencia positiva de recuperación hasta 2022 y en los primeros dos meses de 2023 se puede observar un ligero cambio de tendencia hacia la desaceleración.</p>
+<p><em>La estacionalidad</em>, por otro lado, refleja patrones repetitivos en la serie a lo largo del tiempo. Se identifica un patron estacional en diciembre (incremento de la venta de vehículos por influencia estacional) y enero de cada año (detrimento estacional).</p>
+<p>Por último, <em>el componente irregular</em>, también conocido como ruido, es la parte de la serie que no se puede explicar por la tendencia y la estacionalidad, y puede ser causada por factores impredecibles y/o eventos aleatorios. En este caso,el covid19, un evento sin precedentes e inesperado.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="extracción-de-señales.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilizamos la función decompose (del paquete cargado previamente &quot;STATS&quot;)</span></span>
+<span id="cb22-2"><a href="extracción-de-señales.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb22-3"><a href="extracción-de-señales.html#cb22-3" aria-hidden="true" tabindex="-1"></a>veh_decomp <span class="ot">&lt;-</span> <span class="fu">decompose</span>(veh)</span>
+<span id="cb22-4"><a href="extracción-de-señales.html#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="extracción-de-señales.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficar los componentes</span></span>
+<span id="cb22-6"><a href="extracción-de-señales.html#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co">#Se utiliza para dividir la ventana gráfica en una matriz de 2 filas y 2 columnas</span></span>
+<span id="cb22-7"><a href="extracción-de-señales.html#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="extracción-de-señales.html#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>x, <span class="at">main =</span> <span class="st">&quot;Venta de vehículos-Original&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Serie de tiempo&quot;</span>)</span>
+<span id="cb22-9"><a href="extracción-de-señales.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>trend, <span class="at">main =</span> <span class="st">&quot;Tendencia&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Valores&quot;</span>)</span>
+<span id="cb22-10"><a href="extracción-de-señales.html#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>seasonal, <span class="at">main =</span> <span class="st">&quot;Estacionalidad&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Valores&quot;</span>)</span>
+<span id="cb22-11"><a href="extracción-de-señales.html#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>random, <span class="at">main =</span> <span class="st">&quot;Irregularidad&quot;</span>, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Valores&quot;</span>)</span></code></pre></div>
+<p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="aplicación-del-modelo-arima" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Aplicación del Modelo Arima<a href="extracción-de-señales.html#aplicación-del-modelo-arima" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-exploratorio-inicial.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="validación-de-estacionariedad.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/00-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Series de Tiempo.pdf", "Series de Tiempo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
