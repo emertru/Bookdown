@@ -13,11 +13,14 @@ description: "Asignatura: Series de Tiempo"
 ---
 
 
-***Presentación***
+ ***Presentación***
 
-$Maestría$ $en$ $Ciencia$ $de$ $Datos$
+
  
 
+
+
+$Maestría$ $en$ $Ciencia$ $de$ $Datos$
 
 Asignatura: 
 
