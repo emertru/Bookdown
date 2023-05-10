@@ -18,8 +18,6 @@ La información que se utilizará en el transcurso de la asignatura es de acceso
 
 ## Descripción de las variables del dataset elegido
 
-<img src="datos_SeriesPrediccion.png"/>
-
 <img src="C:\Users\portatil\Desktop\Data\EME\Maestría Ciencia de Datos\Semestre 3\Electiva_Series_De_Tiempo\bookdown-demo-main\bookdown\_bookdown_files\01-intro_files\figure-html\datos_SeriesPrediccion.png"/>
 
 ```{r nice-tab, echo=FALSE, message=FALSE, warning=FALSE, tidy=FALSE}

@@ -13,3 +13,12 @@ Justifi
 tabla-1.-descripción-de-las-variables-de-dataset-elegido
 descripción-de-las-variables-de-dataset-elegido
 descripción-de-las-variables-del-dataset-elegido
+análisis-exploratorio-inicial
+serie-original
+promedio-móvil
+análisis-de-rezagos
+estacionalidad
+extracción-de-señales
+descomposición-de-las-series
+validación-de-estacionariedad
+predicción-corto-plazo

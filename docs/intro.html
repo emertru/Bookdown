@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Asignatura: Series de Tiempo" />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="emtrusi/bookdown" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Predicción de la venta de vehiculos en Colombia" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Julieth Cerón, Miguel Rodríguez y Emerson Trujillo" />
 
 
-<meta name="date" content="2023-05-08" />
+<meta name="date" content="2023-05-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -77,15 +77,20 @@
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#descripción-de-las-variables-del-dataset-elegido"><i class="fa fa-check"></i><b>1.1</b> Descripción de las variables del dataset elegido</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="Justifi.html"><a href="Justifi.html"><i class="fa fa-check"></i><b>2</b> Justificación</a></li>
-<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
-<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a>
+<li class="chapter" data-level="3" data-path="análisis-exploratorio-inicial.html"><a href="análisis-exploratorio-inicial.html"><i class="fa fa-check"></i><b>3</b> Análisis Exploratorio Inicial</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="methods.html"><a href="methods.html#math-example"><i class="fa fa-check"></i><b>4.1</b> math example</a></li>
+<li class="chapter" data-level="3.1" data-path="análisis-exploratorio-inicial.html"><a href="análisis-exploratorio-inicial.html#serie-original"><i class="fa fa-check"></i><b>3.1</b> Serie original</a></li>
+<li class="chapter" data-level="3.2" data-path="análisis-exploratorio-inicial.html"><a href="análisis-exploratorio-inicial.html#promedio-móvil"><i class="fa fa-check"></i><b>3.2</b> Promedio móvil</a></li>
+<li class="chapter" data-level="3.3" data-path="análisis-exploratorio-inicial.html"><a href="análisis-exploratorio-inicial.html#análisis-de-rezagos"><i class="fa fa-check"></i><b>3.3</b> Análisis de rezagos</a></li>
+<li class="chapter" data-level="3.4" data-path="análisis-exploratorio-inicial.html"><a href="análisis-exploratorio-inicial.html#estacionalidad"><i class="fa fa-check"></i><b>3.4</b> Estacionalidad</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<li class="chapter" data-level="4" data-path="extracción-de-señales.html"><a href="extracción-de-señales.html"><i class="fa fa-check"></i><b>4</b> Extracción de señales</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
-<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+<li class="chapter" data-level="4.1" data-path="extracción-de-señales.html"><a href="extracción-de-señales.html#descomposición-de-las-series"><i class="fa fa-check"></i><b>4.1</b> Descomposición de las series</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="validación-de-estacionariedad.html"><a href="validación-de-estacionariedad.html"><i class="fa fa-check"></i><b>5</b> Validación de Estacionariedad</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="validación-de-estacionariedad.html"><a href="validación-de-estacionariedad.html#predicción-corto-plazo"><i class="fa fa-check"></i><b>5.1</b> Predicción corto plazo</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -112,7 +117,7 @@
 <div id="header">
 <h1 class="title">Predicción de la venta de vehiculos en Colombia</h1>
 <p class="author"><em>Julieth Cerón, Miguel Rodríguez y Emerson Trujillo</em></p>
-<p class="date"><em>2023-05-08</em></p>
+<p class="date"><em>2023-05-09</em></p>
 </div>
 <div id="intro" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -126,7 +131,6 @@
 <p>La información que se utilizará en el transcurso de la asignatura es de acceso público, ya que es generada por entidades como el DANE, Banco de la República, Fedesarrollo, Fenalco y la ANDI. En la tabla 1 se describen las variables que se incluyen en el dataset de análisis.</p>
 <div id="descripción-de-las-variables-del-dataset-elegido" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Descripción de las variables del dataset elegido<a href="intro.html#descripción-de-las-variables-del-dataset-elegido" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><img src="datos_SeriesPrediccion.png"/></p>
 <p><img src="C:\Users\portatil\Desktop\Data\EME\Maestría Ciencia de Datos\Semestre 3\Electiva_Series_De_Tiempo\bookdown-demo-main\bookdown\_bookdown_files\01-intro_files\figure-html\datos_SeriesPrediccion.png"/></p>
 <table>
 <caption><span id="tab:nice-tab">Table 1.1: </span>Tabla de Datos</caption>
@@ -440,20 +444,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
