@@ -37,3 +37,12 @@ validación-de-estacionariedad-1
 predicción-corto-plazo-1
 aplicación-del-modelo-arima
 introducción
+introducción-new
+introducción-new1
+introducción-1
+descripción-de-las-variables-del-dataset-elegido-1
+justificación-1
+análisis-de-rezagos-1
+estacionalidad-1
+diferenciación-1
+estimación-del-modelo-auto.arima-1

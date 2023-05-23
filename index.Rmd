@@ -4,6 +4,8 @@ author: ""
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
+bookdown::pdf_book: default
+bookdown::epub_book: default
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -13,11 +15,7 @@ description: "Asignatura: Series de Tiempo"
 ---
 
 
- ***Presentación***
-
-
- 
-
+# ***Presentación***
 
 
 $Maestría$ $en$ $Ciencia$ $de$ $Datos$
@@ -29,6 +27,242 @@ Asignatura:
 Integrantes:
 
  **$Julieth$ $Cerón$, $Miguel$ $Rodríguez$ $y$ $Emerson$ $Trujillo$**
+
+
  
  
+# Introducción
+
+El análisis de series de tiempo de venta de vehículos puede proporcionar información valiosa sobre las tendencias y patrones en la demanda de vehículos. Aquí hay algunos pasos generales que se pueden seguir para analizar una serie de tiempo de venta de vehículos:
+
+**• Recopilar datos:** Lo primero que se debe hacer es recopilar datos históricos sobre las ventas de vehículos en un período de tiempo determinado. Estos datos pueden incluir el número de vehículos vendidos por mes, trimestre, año, región geográfica, marca y modelo, entre otros.
+
+**• Visualizar los datos:** Una vez que se han recopilado los datos, es importante visualizarlos en una gráfica de línea o en un diagrama de puntos para identificar patrones y tendencias. La visualización de los datos puede proporcionar una visión general de la serie de tiempo, permitiendo identificar los picos y los valles y los cambios en la tendencia a lo largo del tiempo.
+
+**• Análisis de estacionalidad:** En el análisis de series de tiempo, es común que exista un patrón estacional en los datos, lo que significa que las ventas pueden ser más altas en ciertos meses o épocas del año. Identificar y modelar la estacionalidad puede ayudar a comprender las fluctuaciones en las ventas y mejorar las predicciones futuras.
+
+**• Identificar tendencias y patrones:** Además de la estacionalidad, es importante identificar cualquier tendencia o patrón en los datos. Por ejemplo, puede haber una tendencia general de aumento o disminución de las ventas de vehículos en el tiempo, o puede haber patrones recurrentes a largo plazo que afectan las ventas.
+
+**• Realizar análisis de causalidad:** El análisis de causalidad implica identificar los factores que pueden estar contribuyendo a las tendencias y patrones en los datos. Por ejemplo, pueden existir factores económicos, demográficos o de marketing que estén influyendo en la demanda de vehículos.
+
+**• Modelar y predecir:** Finalmente, se puede utilizar la información obtenida del análisis de series de tiempo para modelar y predecir las ventas futuras de vehículos. Esto puede ayudar a las empresas a planificar su producción y comercialización y ajustar sus estrategias de negocio para maximizar las ventas y minimizar los costos.
+
+La información que se utilizará en el transcurso de la asignatura es de acceso público, ya que es generada por entidades como el DANE, Banco de la República, Fedesarrollo, Fenalco y la ANDI. En la tabla 1 se describen las variables que se incluyen en el dataset de análisis.
+
+## Descripción de las variables del dataset elegido
+
+<img src="C:\Users\portatil\Desktop\Data\EME\Maestría Ciencia de Datos\Semestre 3\Electiva_Series_De_Tiempo\bookdown-demo-main\bookdown\docs\Series-de-Tiempo_files\figure-html\datos_SeriesPrediccion.png"/>
+
+```{r nice-tab, echo=FALSE, message=FALSE, warning=FALSE, tidy=FALSE}
+library(readxl)
+vehiculos <- read_excel("C:/Users/portatil/DatosR/vehiculos.xlsx")
+
+knitr::kable(
+  head(vehiculos, 20),caption = 'Tabla de Datos',
+  booktabs = TRUE
+)
+```
+
+## Justificación 
+
+Para el desarrollo de la asignatura "Análisis de series temporales", se trabajarán con datos mensuales relacionados con consumo, específicamente en bienes durables, con el objetivo de identificar tendencias económicas, cambios en los patrones de gasto y la evolución del poder adquisitivo de los hogares colombianos. Para esto se pronosticará la venta de vehículos nuevos en Colombia, teniendo en cuenta su evolución histórica y posible relación con otras variables que influyen de forma directa e indirecta en su evolución.
+
+Es importante resaltar que hacer un seguimiento activo a la venta de vehículos nuevos en el país cobra relevancia porque es una variable que aproxima el comportamiento del sector automotor y a su vez el consumo de los hogares, dos motores clave de la economía colombiana. El sector automotor, además, impulsa la innovación, la tecnología, la generación de empleo, la movilidad y el desarrollo de otros sectores económicos (a través de encadenamientos productivos).
+
+El pronostico de esta variable permitirá que las empresas y tomadores de decisiones en el ámbito privado o público puedan identificar oportunidades de mercado y tomar decisiones estratégicas, como el lanzamiento de nuevos productos y servicios que satisfagan las necesidades y deseos de los consumidores y, diseñar programas y políticas que fomenten un consumo más sostenible y equitativo.
+
+# Análisis Exploratorio Inicial
+
+Primero, se llevará a cabo un análisis exploratorio de nuestra serie de interés "venta de vehículos (VEH)" para comprender mejor los datos y lograr identificar patrones y características importantes de esta variable. Así, se podran visualizar los datos y detectar patrones de tendencia, estacionalidad, ciclos, y ruido en la serie de tiempo. Esto es fundamental para elegir el modelo adecuado y para tomar decisiones informadas basadas en los datos de la serie.
+
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+# Instalar y cargar librerias necesarias para el proceso
+
+library(fpp2)
+library(readxl)
+library(forecast)# Contiene el modelo ARIMA
+library(tseries) #Para series de tiempo
+library(TSA)     #Para series de tiempo
+library(urca)    #Para hacer el Test de Raiz Unitaria (detectar hay o no estacionariedad)
+library(ggplot2) #Para hacer gráficos
+library(dplyr)   #Para la manipulación de datos (filtrar, seleccionar, agregar, transformar)
+library(stats)   #Se usa para diversas pruebas estadísticas (medias,varianza, arima,etc)
+library(seasonal)#Para calcular la serie ajustada de estacionalidad
+library(zoo)     #Para calcular la serie ajustada de estacionalidad
+```
+
+## Serie original
+
+Las variables de análisis es la venta de vehículos nuevos en Colombia. Son datos en frecuencia mensual, disponibles desde enero 2014 hasta febrero 2023.
+
+De acuerdo a la figura 1, se puede apreciar que el comercio de vehículos a nivel nacional en los dos último años se vió fuertemente afectado porla pandemia del Covid-19 y las restricciones de aislamiento y movilidad para contener el avance de la misma, especialmente durante el mes de abril 2020. En el año 2021 y 2022 se evidencia una fase de recuperación.
+
+```{r warning=FALSE}
+base <- read_excel("C:/Users/portatil/DatosR/vehiculos_2-3.xlsx")
+veh<-ts(base$VEH[1:110], frequency=12, start=c(2014,1))
+autoplot(veh,frequency=12,xlab="Años",ylab="No. de vehículos",main="Figura 1. Venta de vehículos en Colombia (original)") 
+```
+
+## Promedio móvil
+
+El cálculo del promedio móvil es una técnica común utilizada en el análisis de series de tiempo para suavizar los datos y reducir el ruido. El objetivo es reducir la variabilidad en los datos, lo que puede hacer que las tendencias subyacentes sean más visibles. En esta caso se usará un promedio móvil de orden 3 para no perder tanta información relevante, sobretdo en los últimos dos años de análisis (2021-2022) en donde la economia nacional sufrió un choque sin precendentes.  En la Figura 2. Se observa que el MA(3) suaviza la serie temporal original y elimina la mayoría de las fluctuaciones de corto plazo. Para finales del año 2022, se puede afirmar que la venta de vehículos refleja una tendencia decreciente.
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+library(forecast)
+#Calcular promedio móvil de orden 3
+promovil<- ma(veh, order = 3)
+
+# Graficar serie original y promedio móvil
+ggplot() + 
+  geom_line(aes(x = index(veh), y = veh, color = "Serie original")) + 
+  geom_line(aes(x = index(promovil), y = promovil, color = "Promedio móvil MA(3)")) + 
+  labs(title = "Figura 2. Venta de vehículos con promedio móvil MA(3)",
+       x = "Mes-Año",
+       y = "Número de vehículos",
+       color = "") + 
+  theme_minimal()+
+  scale_color_manual(values = c("Serie original" = "black", "Promedio móvil MA(3)" = "purple"))
+
+```
+
+## Análisis de rezagos
+
+Para saber cuántas veces debes rezagar una serie de tiempo, es importante analizar la naturaleza de los datos y el objetivo del análisis que se está llevando a cabo. Una forma de determinar la cantidad adecuada de retrasos es mediante la prueba de autocorrelación parcial (PACF), que permite identificar los retardos significativos en una serie de tiempo.
+
+La PACF es una medida de la correlación entre una observación y una observación retrasada, controlando el efecto de las observaciones intermedias. Un retraso significativo en la PACF puede indicar que ese número de retrasos es importante para explicar la serie de tiempo.
+
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+library(stats)
+pacf_veh<- pacf(veh)
+plot(pacf_veh)
+```
+
+En la gráfica de la PAFC anterior, se observa que un rezago es importante para explicar la serie. Por ende, a continuación aplicamos 1 reago a la serie original de vehículos:
+
+```{r warning=FALSE}
+library(stats)
+rez_veh <- stats::lag(veh, k = 1)
+plot(veh, main = "Serie original y rezagada")
+lines(rez_veh, col = "red")
+legend("topleft", legend = c("Serie original", "Serie rezagada"), col = c("black", "red"), lty = c(1, 1))
+```
+ Se concluye que rezagar la serie de tiempo de vehículos ayuda a identificar patrones y relaciones que pueden ser útiles en el análisis y pronóstico de la variable.
+
+## Estacionalidad
+
+Una forma útil de saber si la venta de vehículos tiene estacionalidad, es calcular la función acf que devuelve un gráfico que muestra los coeficientes de correlación para cada rezago. Si la serie de tiempo tiene estacionalidad, se esperaría ver picos en los coeficientes de correlación en los múltiplos de la frecuencia de la serie (por ejemplo, si la frecuencia es mensual, se esperaría ver picos en los coeficientes de correlación para los rezagos 12, 24, 36, etc.). Estos picos indicarían la presencia de patrones de repetición en la serie, lo que sugiere la presencia de estacionalidad.
+
+En este sentido, con la gráfica de ACF de la venta de vehículos que se muestra a continuación se afirma que existe un componente estacional en la venta de vehículos, es decir, por ejemplo que la venta de vehículos en Colombia incrementa en el mes de diciembre de cada año y disminuye en enero. Este comportamiento tiene una relación estrecha con la evolución del consumo, en donde, la temporada decembrina refleja un mayor gasto por parte de los hogares colombianos.
+
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+acf(veh, lag.max = 48)
+
+```
+
+
+# Extracción de señales
+
+La extracción de señales en series de tiempo es el proceso de identificar patrones, tendencias y características importantes en los datos de la serie temporal. Es una técnica común utilizada en análisis de series de tiempo para modelar el comportamiento de la serie, predecir valores futuros y entender las relaciones entre las variables.
+
+La extracción de señales incluye el análisis de tendencias, el análisis de ciclos, el análisis de estacionalidad, la identificación de puntos atípicos y la descomposición de series de tiempo.
+
+El objetivo de la extracción de señales es resumir la información en la serie de tiempo de una manera significativa y comprensible, lo que permite a los analistas y tomadores de decisiones identificar patrones y tendencias a largo plazo, así como patrones a corto plazo en los datos. La extracción de señales también puede ser útil para identificar la relación entre las variables de una serie de tiempo y cómo están cambiando a lo largo del tiempo.
+
+En resumen, la extracción de señales en series de tiempo es un proceso crítico para comprender el comportamiento de los datos a lo largo del tiempo y proporciona información valiosa para la toma de decisiones y la predicción de eventos futuros.
+
+##  Descomposición de las series 
+
+Es importante descomponer las series de tiempo porque permite identificar los diferentes componentes que la conforman, es decir, la tendencia, la estacionalidad y la variabilidad aleatoria. Cada uno de estos componentes puede proporcionar información valiosa sobre el comportamiento de la serie a lo largo del tiempo y su relación con otros factores.
+
+*La tendencia* indica que la venta de vehículos refleja un punto de quiebre en marzo 2020 generado por el impacto de la pandemia, luego se evidencia una tendencia positiva de recuperación hasta 2022 y en los primeros dos meses de 2023 se puede observar un ligero cambio de tendencia hacia la desaceleración. 
+
+*La estacionalidad*, por otro lado, refleja patrones repetitivos en la serie a lo largo del tiempo. Se identifica un  patron estacional en diciembre (incremento de la venta de vehículos por influencia estacional) y enero de cada año (detrimento estacional).
+
+Por último, *el componente irregular*, también conocido como ruido, es la parte de la serie que no se puede explicar por la tendencia y la estacionalidad, y puede ser causada por factores impredecibles y/o eventos aleatorios. En este caso,el covid19, un evento sin precedentes e inesperado.
+
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+
+# Utilizamos la función decompose (del paquete cargado previamente "STATS")
+library(stats)
+veh_decomp <- decompose(veh)
+
+# Graficar los componentes
+par(mfrow = c(2, 2)) #Se utiliza para dividir la ventana gráfica en una matriz de 2 filas y 2 columnas
+
+plot(veh_decomp$x, main = "Venta de vehículos-Original", col = "black", ylab = "Serie de tiempo")
+plot(veh_decomp$trend, main = "Tendencia", col = "blue", ylab = "Valores")
+plot(veh_decomp$seasonal, main = "Estacionalidad", col = "red", ylab = "Valores")
+plot(veh_decomp$random, main = "Irregularidad", col = "green", ylab = "Valores")
+```
+
+
+# Aplicación del Modelo Arima
+
+## Validación de Estacionariedad
+
+**Un modelo ARIMA requiere que la serie sea estacionaria**. Se dice que una serie es estacionaria cuando su media, varianza y autocovarianza son invariantes en el tiempo.Esta suposición tiene un sentido intuitivo: dado que ARIMA usa retardos previos de series para modelar su comportamiento.
+
+**RECORDAR:** En el paso anterior se observó graficamente que la serie original de la venta de vehículos tiene una tendencia y ademas no tiene media ni varianza constante.Con lo cual pudieramos afirmar que visualmente la serie pareciera ser NO ESTACIONARIA.
+
+Para validarlo, hacemos el **Test de Dickey Fuller:**. Este test se basa en una regresión lineal que incluye la propia serie de tiempo y sus rezagos.Las hipótesis respectivas son:
+
+**Contraste de hipótesis:**
+
+**H0:** Serie No estacionaria: Hay raiz unitaria   **H1:** Serie Estacionaria: No hay raiz unitaria
+
+Tras realizar la prueba aumentada de Dickey-Fuller (ADF), obtenemos un p-valor = 0.01. Como el p-valor < 0.05,  se rechaza H0. En conclusión, *la venta de vehículos es una variable Estacionaria*. 
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+# Cargar el paquete tseries
+library(tseries)
+# Realizar prueba de raíz unitaria
+adf.test(veh)
+```
+
+## Diferenciación 
+
+Dado que la venta de vehículos es una variable estacionaria, no se requiere diferenciar la serie.
+
+## Estimación del modelo Auto.arima
+
+
+La función auto.arima() es una herramienta muy útil para ajustar modelos ARIMA automáticamente. La idea detrás de esta función es seleccionar automáticamente el mejor modelo ARIMA para una serie de tiempo dada, basándose en criterios estadísticos como el criterio de información de Akaike (AIC) o el criterio de información bayesiano (BIC).
+
+La notación ARIMA(p,d,q)(P,D,Q)[m] se refiere a los parámetros del modelo ARIMA, donde:
+
+p: orden de la parte autoregresiva (AR)
+d: orden de diferenciación (I)
+q: orden de la parte de media móvil (MA)
+P: orden de la parte estacional autoregresiva (SAR)
+D: orden de la diferenciación estacional (SI)
+Q: orden de la parte estacional de media móvil (SMA)
+m: número de períodos en una temporada
+
+*En el modelo ARIMA(1,0,0)(0,1,1)[12]*, el orden AR es 1, el orden MA es 0, el orden de diferenciación es 0, el orden de SAR es 0, el orden de diferenciación estacional es 1, el orden SMA es 1, y el número de períodos en una temporada es 12.
+
+*La interpretación de cada parámetro es la siguiente:*
+
+-*El parámetro AR(1)* indica que se está utilizando la observación más reciente y la observación anterior para predecir la siguiente observación en la serie.
+
+-*El parámetro MA(0)* indica que no se está utilizando ningún término de media móvil para hacer la predicción.
+
+*El parámetro de diferenciación d=0* indica que no se aplicó ninguna diferenciación a la serie.
+
+*El parámetro de diferenciación estacional D=1* indica que se aplicó una diferenciación estacional de primer orden para corregir la estacionalidad en la serie.
+
+*El parámetro SMA(1)* indica que se está utilizando la observación de hace 12 períodos y la observación de hace 1 período para predecir la siguiente observación en la serie.
+
+*En resumen, el modelo ARIMA(1,0,0)(0,1,1)[12] es un modelo que utiliza la observación más reciente y la observación anterior para predecir la siguiente observación en la serie, y también tiene en cuenta la estacionalidad con una diferencia estacional de primer orden y una media móvil estacional de orden 1.*
+
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+#Corremos la función auto.arima:
+autoarimaveh=auto.arima(veh)
+autoarimaveh
+
+```
  
