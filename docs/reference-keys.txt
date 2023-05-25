@@ -46,3 +46,10 @@ análisis-de-rezagos-1
 estacionalidad-1
 diferenciación-1
 estimación-del-modelo-auto.arima-1
+modelo-holt-winters
+predicciones
+ajuste-de-la-estacionalidad
+uso-de-forecast
+evaluación
+mae-y-rmse
+comparación-de-los-modelos-arima-y-holt-winters

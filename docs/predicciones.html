@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Predicción de la venta de vehiculos en Colombia</title>
+  <title>Chapter 6 Predicciones | Predicción de la venta de vehiculos en Colombia</title>
   <meta name="description" content="Asignatura: Series de Tiempo" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Predicción de la venta de vehiculos en Colombia" />
+  <meta property="og:title" content="Chapter 6 Predicciones | Predicción de la venta de vehiculos en Colombia" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Asignatura: Series de Tiempo" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Predicción de la venta de vehiculos en Colombia" />
+  <meta name="twitter:title" content="Chapter 6 Predicciones | Predicción de la venta de vehiculos en Colombia" />
   
   <meta name="twitter:description" content="Asignatura: Series de Tiempo" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="introducción.html"/>
+<link rel="prev" href="aplicación-del-modelo-arima.html"/>
+<link rel="next" href="evaluación.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -160,14 +160,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#estimación-del-modelo-auto.arima"><i class="fa fa-check"></i><b>5.3</b> Estimación del modelo Auto.arima</a></li>
 <li class="chapter" data-level="5.4" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#validación-de-supuestos"><i class="fa fa-check"></i><b>5.4</b> Validación de supuestos</a></li>
 <li class="chapter" data-level="5.5" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#predicción-corto-plazo"><i class="fa fa-check"></i><b>5.5</b> Predicción corto plazo</a></li>
-<li class="chapter" data-level="5.6" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#evaluación-del-modelo---mae-y-rmse"><i class="fa fa-check"></i><b>5.6</b> Evaluación del Modelo - MAE y RMSE</a></li>
+<li class="chapter" data-level="5.6" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#modelo-holt-winters"><i class="fa fa-check"></i><b>5.6</b> Modelo Holt-Winters</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html"><i class="fa fa-check"></i><b>6</b> Modelo Holt-Winters</a>
+<li class="chapter" data-level="6" data-path="predicciones.html"><a href="predicciones.html"><i class="fa fa-check"></i><b>6</b> Predicciones</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#uso-de-forecast"><i class="fa fa-check"></i><b>6.1</b> Uso de Forecast:</a></li>
-<li class="chapter" data-level="6.2" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#mae-y-rmse"><i class="fa fa-check"></i><b>6.2</b> MAE y RMSE</a></li>
-<li class="chapter" data-level="6.3" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#comparación-de-los-modelos-arima-y-holt-winters"><i class="fa fa-check"></i><b>6.3</b> Comparación de los modelos ARIMA y Holt-Winters:</a></li>
+<li class="chapter" data-level="6.1" data-path="predicciones.html"><a href="predicciones.html#ajuste-de-la-estacionalidad"><i class="fa fa-check"></i><b>6.1</b> Ajuste de la estacionalidad</a></li>
+<li class="chapter" data-level="6.2" data-path="predicciones.html"><a href="predicciones.html#uso-de-forecast"><i class="fa fa-check"></i><b>6.2</b> Uso de Forecast:</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="evaluación.html"><a href="evaluación.html"><i class="fa fa-check"></i><b>7</b> Evaluación</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -188,26 +188,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Predicción de la venta de vehiculos en Colombia</h1>
-<p class="author"><em></em></p>
-<p class="date"><em>2023-05-24</em></p>
+<div id="predicciones" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Predicciones<a href="predicciones.html#predicciones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Ambos ajustes parecen seguir bastante bien nuestros datos, así que ahora es el momento de ver cómo se desempeñan al predecir las ventas futura de vehiculos Usando la función “predict”, necesitaremos especificar cuántos puntos de datos queremos predecir en el futuro. Aquí, usaremos un valor de 24 para proyectar 2 años hacia el futuro (recuerdemos, esta es una serie temporal mensual). También nos gustaría tener una noción de los “intervalos de error” asociados con la predicción para tener una idea de nuestra confianza en la predicción. Para hacer esto, establecemos “prediction.interval=TRUE” y el nivel del intervalo de confianza (seleccionado aquí como 0.95). Una vez más, mostraremos un gráfico que incluya la cola de nuestros datos existentes y las nuevas predicciones.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="predicciones.html#cb17-1" aria-hidden="true" tabindex="-1"></a>HW1.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(HW1, <span class="dv">24</span>, <span class="at">prediction.interval =</span> <span class="cn">TRUE</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span>
+<span id="cb17-2"><a href="predicciones.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#gráfica</span></span>
+<span id="cb17-3"><a href="predicciones.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh, <span class="at">ylab=</span><span class="st">&quot;Ventas de Vehiculos&quot;</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">2014</span>,<span class="dv">2025</span>))</span>
+<span id="cb17-4"><a href="predicciones.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(HW1<span class="sc">$</span>fitted[,<span class="dv">1</span>], <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb17-5"><a href="predicciones.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(HW1.pred[,<span class="dv">1</span>], <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb17-6"><a href="predicciones.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(HW1.pred[,<span class="dv">2</span>], <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb17-7"><a href="predicciones.html#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(HW1.pred[,<span class="dv">3</span>], <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
+<p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div id="ajuste-de-la-estacionalidad" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Ajuste de la estacionalidad<a href="predicciones.html#ajuste-de-la-estacionalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cuando realizamos ajustes, también tenemos la opción de ajustar el comportamiento de la componente de estacionalidad. Los ajustes estándar de Holt-Winters utilizan una estacionalidad aditiva, lo que significa que asumen que la amplitud de cualquier componente de estacionalidad es relativamente constante a lo largo de la serie. Sin embargo, si utilizamos una estacionalidad multiplicativa, permitimos que las variaciones estacionales (amplitud) crezcan con el nivel general de los datos. Para ver cómo funciona esto en nuestro caso de ventas de vehículos, crearemos un nuevo ajuste, realizaremos predicciones en el futuro y las compararemos con nuestro ajuste aditivo de HW1.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="predicciones.html#cb18-1" aria-hidden="true" tabindex="-1"></a>HW3 <span class="ot">&lt;-</span> <span class="fu">HoltWinters</span>(veh, <span class="at">seasonal =</span> <span class="st">&quot;multiplicative&quot;</span>)</span>
+<span id="cb18-2"><a href="predicciones.html#cb18-2" aria-hidden="true" tabindex="-1"></a>HW3.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(HW3, <span class="dv">24</span>, <span class="at">prediction.interval =</span> <span class="cn">TRUE</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span>
+<span id="cb18-3"><a href="predicciones.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh, <span class="at">ylab=</span><span class="st">&quot;Ventas de Vehiculos&quot;</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">2014</span>,<span class="dv">2025</span>))</span>
+<span id="cb18-4"><a href="predicciones.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(HW3<span class="sc">$</span>fitted[,<span class="dv">1</span>], <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb18-5"><a href="predicciones.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(HW3.pred[,<span class="dv">1</span>], <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb18-6"><a href="predicciones.html#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(HW3.pred[,<span class="dv">2</span>], <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb18-7"><a href="predicciones.html#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(HW3.pred[,<span class="dv">3</span>], <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
+<p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Como podemos ver, la predicción se parece bastante a nuestro resultado de HW1, los intervalos de confianza muestran una tendencia más conservadora. Para este conjunto de datos, parece que el ajuste multiplicativo podría ser una mejor opción.</p>
 </div>
-<div id="presentación" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> <strong><em>Presentación</em></strong><a href="index.html#presentación" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><span class="math inline">\(Maestría\)</span> <span class="math inline">\(en\)</span> <span class="math inline">\(Ciencia\)</span> <span class="math inline">\(de\)</span> <span class="math inline">\(Datos\)</span></p>
-<p>Asignatura:</p>
-<p><span class="math inline">\(Series\)</span> <span class="math inline">\(de\)</span> <span class="math inline">\(Tiempo\)</span></p>
-<p>Integrantes:</p>
-<p><strong><span class="math inline">\(Julieth\)</span> <span class="math inline">\(Cerón\)</span>, <span class="math inline">\(Miguel\)</span> <span class="math inline">\(Rodríguez\)</span> <span class="math inline">\(y\)</span> <span class="math inline">\(Emerson\)</span> <span class="math inline">\(Trujillo\)</span></strong></p>
+<div id="uso-de-forecast" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Uso de Forecast:<a href="predicciones.html#uso-de-forecast" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Utilizando nuestro ajuste de Holt-Winters HW1 anterior, podemos utilizar “forecast” para hacer nuevas predicciones e incluir intervalos de confianza del 80% y 95%.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="predicciones.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb19-2"><a href="predicciones.html#cb19-2" aria-hidden="true" tabindex="-1"></a>HW1_for <span class="ot">&lt;-</span> <span class="fu">forecast</span>(HW1, <span class="at">h=</span><span class="dv">24</span>, <span class="at">level=</span><span class="fu">c</span>(<span class="dv">80</span>,<span class="dv">95</span>))</span>
+<span id="cb19-3"><a href="predicciones.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#grafica</span></span>
+<span id="cb19-4"><a href="predicciones.html#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(HW1_for, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">2014</span>, <span class="dv">2026</span>))</span>
+<span id="cb19-5"><a href="predicciones.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(HW1_for<span class="sc">$</span>fitted, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
+<p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="introducción.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="aplicación-del-modelo-arima.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="evaluación.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

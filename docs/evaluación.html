@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Predicción de la venta de vehiculos en Colombia</title>
+  <title>Chapter 7 Evaluación | Predicción de la venta de vehiculos en Colombia</title>
   <meta name="description" content="Asignatura: Series de Tiempo" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Predicción de la venta de vehiculos en Colombia" />
+  <meta property="og:title" content="Chapter 7 Evaluación | Predicción de la venta de vehiculos en Colombia" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Asignatura: Series de Tiempo" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Predicción de la venta de vehiculos en Colombia" />
+  <meta name="twitter:title" content="Chapter 7 Evaluación | Predicción de la venta de vehiculos en Colombia" />
   
   <meta name="twitter:description" content="Asignatura: Series de Tiempo" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="predicciones.html"/>
 
-<link rel="next" href="introducción.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -160,14 +160,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#estimación-del-modelo-auto.arima"><i class="fa fa-check"></i><b>5.3</b> Estimación del modelo Auto.arima</a></li>
 <li class="chapter" data-level="5.4" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#validación-de-supuestos"><i class="fa fa-check"></i><b>5.4</b> Validación de supuestos</a></li>
 <li class="chapter" data-level="5.5" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#predicción-corto-plazo"><i class="fa fa-check"></i><b>5.5</b> Predicción corto plazo</a></li>
-<li class="chapter" data-level="5.6" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#evaluación-del-modelo---mae-y-rmse"><i class="fa fa-check"></i><b>5.6</b> Evaluación del Modelo - MAE y RMSE</a></li>
+<li class="chapter" data-level="5.6" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#modelo-holt-winters"><i class="fa fa-check"></i><b>5.6</b> Modelo Holt-Winters</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html"><i class="fa fa-check"></i><b>6</b> Modelo Holt-Winters</a>
+<li class="chapter" data-level="6" data-path="predicciones.html"><a href="predicciones.html"><i class="fa fa-check"></i><b>6</b> Predicciones</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#uso-de-forecast"><i class="fa fa-check"></i><b>6.1</b> Uso de Forecast:</a></li>
-<li class="chapter" data-level="6.2" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#mae-y-rmse"><i class="fa fa-check"></i><b>6.2</b> MAE y RMSE</a></li>
-<li class="chapter" data-level="6.3" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#comparación-de-los-modelos-arima-y-holt-winters"><i class="fa fa-check"></i><b>6.3</b> Comparación de los modelos ARIMA y Holt-Winters:</a></li>
+<li class="chapter" data-level="6.1" data-path="predicciones.html"><a href="predicciones.html#ajuste-de-la-estacionalidad"><i class="fa fa-check"></i><b>6.1</b> Ajuste de la estacionalidad</a></li>
+<li class="chapter" data-level="6.2" data-path="predicciones.html"><a href="predicciones.html#uso-de-forecast"><i class="fa fa-check"></i><b>6.2</b> Uso de Forecast:</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="evaluación.html"><a href="evaluación.html"><i class="fa fa-check"></i><b>7</b> Evaluación</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -188,26 +188,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Predicción de la venta de vehiculos en Colombia</h1>
-<p class="author"><em></em></p>
-<p class="date"><em>2023-05-24</em></p>
-</div>
-<div id="presentación" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> <strong><em>Presentación</em></strong><a href="index.html#presentación" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><span class="math inline">\(Maestría\)</span> <span class="math inline">\(en\)</span> <span class="math inline">\(Ciencia\)</span> <span class="math inline">\(de\)</span> <span class="math inline">\(Datos\)</span></p>
-<p>Asignatura:</p>
-<p><span class="math inline">\(Series\)</span> <span class="math inline">\(de\)</span> <span class="math inline">\(Tiempo\)</span></p>
-<p>Integrantes:</p>
-<p><strong><span class="math inline">\(Julieth\)</span> <span class="math inline">\(Cerón\)</span>, <span class="math inline">\(Miguel\)</span> <span class="math inline">\(Rodríguez\)</span> <span class="math inline">\(y\)</span> <span class="math inline">\(Emerson\)</span> <span class="math inline">\(Trujillo\)</span></strong></p>
+<div id="evaluación" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Evaluación<a href="evaluación.html#evaluación" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Ahora calculamos la calidad de nuestras predicciones al compilar los valores observados menos los valores predichos para cada punto de datos. Estos se agregan a nuestro modelo de predicción como “$residuals”. Para evaluar mejor las funciones de suavizado que utilizamos en nuestro modelo, queremos verificar que no haya correlaciones entre los errores de predicción. En pocas palabras, si los puntos vecinos en nuestros ajustes constantemente se desvían de los valores observados de manera similar, nuestra línea de ajuste principal no es lo suficientemente reactiva a los cambios en los datos. Para capturar esto, utilizamos la función “acf” para evaluar la correlación de los residuos del ajuste entre puntos con diferentes separaciones temporales en la serie de tiempo (lag). Idealmente, para un lag no nulo, las barras de ACF deben estar dentro del rango de barras azules que se muestran a continuación. Es importante utilizar “na.action=na.pass” porque el último valor de “’$residuals” siempre es NA y, de lo contrario, la función mostrará un error.</p>
+<p>Una prueba de Ljung-Box también puede indicar la presencia de estas correlaciones. Si obtenemos un valor de p &gt; 0.05, hay un 95% de probabilidad de que los residuos sean independientes. Por último, es útil verificar el histograma de los residuos para asegurarnos de que sigan una distribución normal. Si los residuos están muy sesgados, entonces nuestro modelo puede estar constantemente sobrestimando en una dirección.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="evaluación.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(HW1_for<span class="sc">$</span>residuals, <span class="at">lag.max=</span><span class="dv">20</span>, <span class="at">na.action=</span>na.pass)</span></code></pre></div>
+<p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="evaluación.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span>(HW1_for<span class="sc">$</span>residuals, <span class="at">lag=</span><span class="dv">20</span>, <span class="at">type=</span><span class="st">&quot;Ljung-Box&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Box-Ljung test
+## 
+## data:  HW1_for$residuals
+## X-squared = 22.863, df = 20, p-value = 0.2955</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="evaluación.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(HW1_for<span class="sc">$</span>residuals)</span></code></pre></div>
+<p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="predicciones.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="introducción.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
