@@ -329,7 +329,9 @@ lines(HW1$fitted[,1], lty=2, col="blue")
 lines(HW2$fitted[,1], lty=2, col="red")
 legend("bottomleft", legend = c("Serie original", "HW1","HW2"), col = c("black", "blue", "red"), lty = 1)
 ```
+
 ## Predicciones
+
 Ambos ajustes parecen seguir bastante bien nuestros datos, así que ahora es el momento de ver cómo se desempeñan al predecir las ventas futura de vehiculos Usando la función "predict", necesitaremos especificar cuántos puntos de datos queremos predecir en el futuro. Aquí, usaremos un valor de 24 para proyectar 2 años hacia el futuro (recuerdemos, esta es una serie temporal mensual). También nos gustaría tener una noción de los "intervalos de error" asociados con la predicción para tener una idea de nuestra confianza en la predicción. Para hacer esto, establecemos "prediction.interval=TRUE" y el nivel del intervalo de confianza (seleccionado aquí como 0.95). Una vez más, mostraremos un gráfico que incluya la cola de nuestros datos existentes y las nuevas predicciones.
 
 
@@ -344,7 +346,9 @@ lines(HW1.pred[,2], lty=2, col="orange")
 lines(HW1.pred[,3], lty=2, col="orange")
 legend("bottomleft", legend = c("Serie original", "HW1","pronostico","límites"), col = c("black", "blue", "red","orange"), lty = 1)
 ```
+
 ## Ajuste de la estacionalidad
+
 Cuando realizamos ajustes, también tenemos la opción de ajustar el comportamiento de la componente de estacionalidad. Los ajustes estándar de Holt-Winters utilizan una estacionalidad aditiva, lo que significa que asumen que la amplitud de cualquier componente de estacionalidad es relativamente constante a lo largo de la serie. Sin embargo, si utilizamos una estacionalidad multiplicativa, permitimos que las variaciones estacionales (amplitud) crezcan con el nivel general de los datos. Para ver cómo funciona esto en nuestro caso de ventas de vehículos, crearemos un nuevo ajuste, realizaremos predicciones en el futuro y las compararemos con nuestro ajuste aditivo de HW1.
 
 
