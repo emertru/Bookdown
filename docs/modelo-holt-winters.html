@@ -158,8 +158,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#predicciones"><i class="fa fa-check"></i><b>5.1</b> Predicciones</a></li>
 <li class="chapter" data-level="5.2" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#ajuste-de-la-estacionalidad"><i class="fa fa-check"></i><b>5.2</b> Ajuste de la estacionalidad</a></li>
 <li class="chapter" data-level="5.3" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#uso-de-forecast"><i class="fa fa-check"></i><b>5.3</b> Uso de Forecast:</a></li>
-<li class="chapter" data-level="5.4" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#mae-y-rmse"><i class="fa fa-check"></i><b>5.4</b> MAE y RMSE</a></li>
-<li class="chapter" data-level="5.5" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#comparación-de-los-modelos-arima-y-holt-winters"><i class="fa fa-check"></i><b>5.5</b> Comparación de los modelos ARIMA y Holt-Winters:</a></li>
+<li class="chapter" data-level="5.4" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#evaluación-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Evaluación del modelo</a></li>
+<li class="chapter" data-level="5.5" data-path="modelo-holt-winters.html"><a href="modelo-holt-winters.html#mae-y-rmse"><i class="fa fa-check"></i><b>5.5</b> MAE y RMSE</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html"><i class="fa fa-check"></i><b>6</b> Aplicación del Modelo Arima</a>
 <ul>
@@ -169,6 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#validación-de-supuestos"><i class="fa fa-check"></i><b>6.4</b> Validación de supuestos</a></li>
 <li class="chapter" data-level="6.5" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#predicción-corto-plazo"><i class="fa fa-check"></i><b>6.5</b> Predicción corto plazo</a></li>
 <li class="chapter" data-level="6.6" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#evaluación-del-modelo---mae-y-rmse"><i class="fa fa-check"></i><b>6.6</b> Evaluación del Modelo - MAE y RMSE</a></li>
+<li class="chapter" data-level="6.7" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#comparación-de-los-modelos-arima-y-holt-winters"><i class="fa fa-check"></i><b>6.7</b> Comparación de los modelos ARIMA y Holt-Winters:</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -237,9 +238,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-3"><a href="modelo-holt-winters.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#grafica</span></span>
 <span id="cb11-4"><a href="modelo-holt-winters.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(HW1_for, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">2014</span>, <span class="dv">2026</span>))</span>
 <span id="cb11-5"><a href="modelo-holt-winters.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(HW1_for<span class="sc">$</span>fitted, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
-<p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-11-1.png" width="672" />
-## Evaluación del modelo
-Ahora calculamos la calidad de nuestras predicciones al compilar los valores observados menos los valores predichos para cada punto de datos. Estos se agregan a nuestro modelo de predicción como “$residuals”. Para evaluar mejor las funciones de suavizado que utilizamos en nuestro modelo, queremos verificar que no haya correlaciones entre los errores de predicción. En pocas palabras, si los puntos vecinos en nuestros ajustes constantemente se desvían de los valores observados de manera similar, nuestra línea de ajuste principal no es lo suficientemente reactiva a los cambios en los datos. Para capturar esto, utilizamos la función “acf” para evaluar la correlación de los residuos del ajuste entre puntos con diferentes separaciones temporales en la serie de tiempo (lag). Idealmente, para un lag no nulo, las barras de ACF deben estar dentro del rango de barras azules que se muestran a continuación. Es importante utilizar “na.action=na.pass” porque el último valor de “’$residuals” siempre es NA y, de lo contrario, la función mostrará un error.</p>
+<p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="evaluación-del-modelo" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Evaluación del modelo<a href="modelo-holt-winters.html#evaluación-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ahora calculamos la calidad de nuestras predicciones al compilar los valores observados menos los valores predichos para cada punto de datos. Estos se agregan a nuestro modelo de predicción como “$residuals”. Para evaluar mejor las funciones de suavizado que utilizamos en nuestro modelo, queremos verificar que no haya correlaciones entre los errores de predicción. En pocas palabras, si los puntos vecinos en nuestros ajustes constantemente se desvían de los valores observados de manera similar, nuestra línea de ajuste principal no es lo suficientemente reactiva a los cambios en los datos. Para capturar esto, utilizamos la función “acf” para evaluar la correlación de los residuos del ajuste entre puntos con diferentes separaciones temporales en la serie de tiempo (lag). Idealmente, para un lag no nulo, las barras de ACF deben estar dentro del rango de barras azules que se muestran a continuación. Es importante utilizar “na.action=na.pass” porque el último valor de “’$residuals” siempre es NA y, de lo contrario, la función mostrará un error.</p>
 <p>Una prueba de Ljung-Box también puede indicar la presencia de estas correlaciones. Si obtenemos un valor de p &gt; 0.05, hay un 95% de probabilidad de que los residuos sean independientes. Por último, es útil verificar el histograma de los residuos para asegurarnos de que sigan una distribución normal. Si los residuos están muy sesgados, entonces nuestro modelo puede estar constantemente sobrestimando en una dirección.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="modelo-holt-winters.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(HW1_for<span class="sc">$</span>residuals, <span class="at">lag.max=</span><span class="dv">20</span>, <span class="at">na.action=</span>na.pass)</span></code></pre></div>
 <p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
@@ -252,8 +255,8 @@ Ahora calculamos la calidad de nuestras predicciones al compilar los valores obs
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="modelo-holt-winters.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(HW1_for<span class="sc">$</span>residuals)</span></code></pre></div>
 <p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
 </div>
-<div id="mae-y-rmse" class="section level2 hasAnchor" number="5.4">
-<h2><span class="header-section-number">5.4</span> MAE y RMSE<a href="modelo-holt-winters.html#mae-y-rmse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mae-y-rmse" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> MAE y RMSE<a href="modelo-holt-winters.html#mae-y-rmse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="modelo-holt-winters.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular las medidas de precisión</span></span>
 <span id="cb16-2"><a href="modelo-holt-winters.html#cb16-2" aria-hidden="true" tabindex="-1"></a>accuracy_hw <span class="ot">&lt;-</span> <span class="fu">accuracy</span>(HW1_for)</span>
 <span id="cb16-3"><a href="modelo-holt-winters.html#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -266,18 +269,6 @@ Ahora calculamos la calidad de nuestras predicciones al compilar los valores obs
 <pre><code>## MAE: 259.0023</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="modelo-holt-winters.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;RMSE:&quot;</span>, rmse_hw, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## RMSE: 3263.144</code></pre>
-</div>
-<div id="comparación-de-los-modelos-arima-y-holt-winters" class="section level2 hasAnchor" number="5.5">
-<h2><span class="header-section-number">5.5</span> Comparación de los modelos ARIMA y Holt-Winters:<a href="modelo-holt-winters.html#comparación-de-los-modelos-arima-y-holt-winters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Comparando los resultados de los modelos ARIMA y Holt-Winters en términos de las métricas de precisión, podemos hacer las siguientes conclusiones:</p>
-<p><strong>MAE (Mean Absolute Error):</strong></p>
-<p>El modelo ARIMA tiene un MAE de -155.7058, mientras que el modelo Holt-Winters tiene un MAE de 259.0023.
-En términos del MAE, el modelo ARIMA muestra un menor error absoluto promedio en comparación con el modelo Holt-Winters.
-Un valor de MAE más bajo indica que el modelo ARIMA tiene una mejor precisión en los pronósticos en comparación con el modelo Holt-Winters.</p>
-<p><strong>RMSE (Root Mean Squared Error):</strong></p>
-<p>El modelo ARIMA tiene un RMSE de 2912.711, mientras que el modelo Holt-Winters tiene un RMSE de 3263.144.
-En términos del RMSE, el modelo ARIMA muestra un valor más bajo, lo que indica un menor error cuadrático promedio en comparación con el modelo Holt-Winters.
-Un valor de RMSE más bajo también indica que el modelo ARIMA tiene un mejor ajuste y mayor precisión en los pronósticos en comparación con el modelo Holt-Winters.</p>
 </div>
 </div>
             </section>

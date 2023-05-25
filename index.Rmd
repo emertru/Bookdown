@@ -259,7 +259,10 @@ HW1_for <- forecast(HW1, h=24, level=c(80,95))
 plot(HW1_for, xlim=c(2014, 2026))
 lines(HW1_for$fitted, lty=2, col="purple")
 ```
+
+
 ## Evaluación del modelo
+
 Ahora calculamos la calidad de nuestras predicciones al compilar los valores observados menos los valores predichos para cada punto de datos. Estos se agregan a nuestro modelo de predicción como "\$residuals". Para evaluar mejor las funciones de suavizado que utilizamos en nuestro modelo, queremos verificar que no haya correlaciones entre los errores de predicción. En pocas palabras, si los puntos vecinos en nuestros ajustes constantemente se desvían de los valores observados de manera similar, nuestra línea de ajuste principal no es lo suficientemente reactiva a los cambios en los datos. Para capturar esto, utilizamos la función "acf" para evaluar la correlación de los residuos del ajuste entre puntos con diferentes separaciones temporales en la serie de tiempo (lag). Idealmente, para un lag no nulo, las barras de ACF deben estar dentro del rango de barras azules que se muestran a continuación. Es importante utilizar "na.action=na.pass" porque el último valor de "'\$residuals" siempre es NA y, de lo contrario, la función mostrará un error.
 
 Una prueba de Ljung-Box también puede indicar la presencia de estas correlaciones. Si obtenemos un valor de p > 0.05, hay un 95% de probabilidad de que los residuos sean independientes. Por último, es útil verificar el histograma de los residuos para asegurarnos de que sigan una distribución normal. Si los residuos están muy sesgados, entonces nuestro modelo puede estar constantemente sobrestimando en una dirección.
@@ -283,23 +286,6 @@ rmse_hw <- accuracy_hw[2]
 cat("MAE:", mae_hw, "\n")
 cat("RMSE:", rmse_hw, "\n")
 ```
-
-## Comparación de los modelos ARIMA y Holt-Winters:
-
-Comparando los resultados de los modelos ARIMA y Holt-Winters en términos de las métricas de precisión, podemos hacer las siguientes conclusiones:
-
-**MAE (Mean Absolute Error):**
-
-El modelo ARIMA tiene un MAE de -155.7058, mientras que el modelo Holt-Winters tiene un MAE de 259.0023.
-En términos del MAE, el modelo ARIMA muestra un menor error absoluto promedio en comparación con el modelo Holt-Winters.
-Un valor de MAE más bajo indica que el modelo ARIMA tiene una mejor precisión en los pronósticos en comparación con el modelo Holt-Winters.
-
-**RMSE (Root Mean Squared Error):**
-
-El modelo ARIMA tiene un RMSE de 2912.711, mientras que el modelo Holt-Winters tiene un RMSE de 3263.144.
-En términos del RMSE, el modelo ARIMA muestra un valor más bajo, lo que indica un menor error cuadrático promedio en comparación con el modelo Holt-Winters.
-Un valor de RMSE más bajo también indica que el modelo ARIMA tiene un mejor ajuste y mayor precisión en los pronósticos en comparación con el modelo Holt-Winters.
-
 
 
 # Aplicación del Modelo Arima
@@ -418,3 +404,18 @@ cat("MAE:", mae_arima, "\n")
 cat("RMSE:", rmse_arima, "\n")
 ```
 
+## Comparación de los modelos ARIMA y Holt-Winters:
+
+Comparando los resultados de los modelos ARIMA y Holt-Winters en términos de las métricas de precisión, podemos hacer las siguientes conclusiones:
+
+**MAE (Mean Absolute Error):**
+
+El modelo ARIMA tiene un MAE de -155.7058, mientras que el modelo Holt-Winters tiene un MAE de 259.0023.
+En términos del MAE, el modelo ARIMA muestra un menor error absoluto promedio en comparación con el modelo Holt-Winters.
+Un valor de MAE más bajo indica que el modelo ARIMA tiene una mejor precisión en los pronósticos en comparación con el modelo Holt-Winters.
+
+**RMSE (Root Mean Squared Error):**
+
+El modelo ARIMA tiene un RMSE de 2912.711, mientras que el modelo Holt-Winters tiene un RMSE de 3263.144.
+En términos del RMSE, el modelo ARIMA muestra un valor más bajo, lo que indica un menor error cuadrático promedio en comparación con el modelo Holt-Winters.
+Un valor de RMSE más bajo también indica que el modelo ARIMA tiene un mejor ajuste y mayor precisión en los pronósticos en comparación con el modelo Holt-Winters.
