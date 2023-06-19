@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2023-05-24" />
+<meta name="date" content="2023-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -171,6 +179,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.6" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#evaluación-del-modelo---mae-y-rmse"><i class="fa fa-check"></i><b>6.6</b> Evaluación del Modelo - MAE y RMSE</a></li>
 <li class="chapter" data-level="6.7" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#comparación-de-los-modelos-arima-y-holt-winters"><i class="fa fa-check"></i><b>6.7</b> Comparación de los modelos ARIMA y Holt-Winters:</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="modelo-facebook-prophet.html"><a href="modelo-facebook-prophet.html"><i class="fa fa-check"></i><b>7</b> Modelo Facebook Prophet</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modelo-facebook-prophet.html"><a href="modelo-facebook-prophet.html#analisis-de-predicción-de-los-modelos"><i class="fa fa-check"></i><b>7.1</b> Analisis de predicción de los Modelos</a></li>
+<li class="chapter" data-level="7.2" data-path="modelo-facebook-prophet.html"><a href="modelo-facebook-prophet.html#evaluación-del-modelo---mae-y-rmse-1"><i class="fa fa-check"></i><b>7.2</b> Evaluación del Modelo - MAE y RMSE</a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-facebook-prophet.html"><a href="modelo-facebook-prophet.html#comparación-de-los-modelos-arima-y-prophet"><i class="fa fa-check"></i><b>7.3</b> Comparación de los modelos ARIMA y Prophet:</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"><a href="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"><i class="fa fa-check"></i><b>8</b> Redes Neuronales Recurrentes (Modelos Elman y Jordan)</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"><a href="redes-neuronales-recurrentes-modelos-elman-y-jordan.html#estimación-del-error-comparativo-de-los-modelos-con-los-valores-actuales-observados."><i class="fa fa-check"></i><b>8.1</b> Estimación del error Comparativo de los modelos con los valores actuales observados.</a></li>
+<li class="chapter" data-level="8.2" data-path="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"><a href="redes-neuronales-recurrentes-modelos-elman-y-jordan.html#conclusiones-de-modelos-de-redes-neuronales-elman-y-jordan."><i class="fa fa-check"></i><b>8.2</b> Conclusiones de modelos de redes neuronales ELMAN y JORDAN.</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -203,17 +222,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>La tendencia</em> indica que la venta de vehículos refleja un punto de quiebre en marzo 2020 generado por el impacto de la pandemia, luego se evidencia una tendencia positiva de recuperación hasta 2022 y en los primeros dos meses de 2023 se puede observar un ligero cambio de tendencia hacia la desaceleración.</p>
 <p><em>La estacionalidad</em>, por otro lado, refleja patrones repetitivos en la serie a lo largo del tiempo. Se identifica un patron estacional en diciembre (incremento de la venta de vehículos por influencia estacional) y enero de cada año (detrimento estacional).</p>
 <p>Por último, <em>el componente irregular</em>, también conocido como ruido, es la parte de la serie que no se puede explicar por la tendencia y la estacionalidad, y puede ser causada por factores impredecibles y/o eventos aleatorios. En este caso,el covid19, un evento sin precedentes e inesperado.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="extracción-de-señales.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilizamos la función decompose (del paquete cargado previamente &quot;STATS&quot;)</span></span>
-<span id="cb7-2"><a href="extracción-de-señales.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb7-3"><a href="extracción-de-señales.html#cb7-3" aria-hidden="true" tabindex="-1"></a>veh_decomp <span class="ot">&lt;-</span> <span class="fu">decompose</span>(veh)</span>
-<span id="cb7-4"><a href="extracción-de-señales.html#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="extracción-de-señales.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficar los componentes</span></span>
-<span id="cb7-6"><a href="extracción-de-señales.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co">#Se utiliza para dividir la ventana gráfica en una matriz de 2 filas y 2 columnas</span></span>
-<span id="cb7-7"><a href="extracción-de-señales.html#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="extracción-de-señales.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>x, <span class="at">main =</span> <span class="st">&quot;Venta de vehículos-Original&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Serie de tiempo&quot;</span>)</span>
-<span id="cb7-9"><a href="extracción-de-señales.html#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>trend, <span class="at">main =</span> <span class="st">&quot;Tendencia&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Valores&quot;</span>)</span>
-<span id="cb7-10"><a href="extracción-de-señales.html#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>seasonal, <span class="at">main =</span> <span class="st">&quot;Estacionalidad&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Valores&quot;</span>)</span>
-<span id="cb7-11"><a href="extracción-de-señales.html#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>random, <span class="at">main =</span> <span class="st">&quot;Irregularidad&quot;</span>, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Valores&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="extracción-de-señales.html#cb7-1" tabindex="-1"></a><span class="co"># Utilizamos la función decompose (del paquete cargado previamente &quot;STATS&quot;)</span></span>
+<span id="cb7-2"><a href="extracción-de-señales.html#cb7-2" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb7-3"><a href="extracción-de-señales.html#cb7-3" tabindex="-1"></a>veh_decomp <span class="ot">&lt;-</span> <span class="fu">decompose</span>(veh)</span>
+<span id="cb7-4"><a href="extracción-de-señales.html#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="extracción-de-señales.html#cb7-5" tabindex="-1"></a><span class="co"># Graficar los componentes</span></span>
+<span id="cb7-6"><a href="extracción-de-señales.html#cb7-6" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co">#Se utiliza para dividir la ventana gráfica en una matriz de 2 filas y 2 columnas</span></span>
+<span id="cb7-7"><a href="extracción-de-señales.html#cb7-7" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="extracción-de-señales.html#cb7-8" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>x, <span class="at">main =</span> <span class="st">&quot;Venta de vehículos-Original&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Serie de tiempo&quot;</span>)</span>
+<span id="cb7-9"><a href="extracción-de-señales.html#cb7-9" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>trend, <span class="at">main =</span> <span class="st">&quot;Tendencia&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Valores&quot;</span>)</span>
+<span id="cb7-10"><a href="extracción-de-señales.html#cb7-10" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>seasonal, <span class="at">main =</span> <span class="st">&quot;Estacionalidad&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Valores&quot;</span>)</span>
+<span id="cb7-11"><a href="extracción-de-señales.html#cb7-11" tabindex="-1"></a><span class="fu">plot</span>(veh_decomp<span class="sc">$</span>random, <span class="at">main =</span> <span class="st">&quot;Irregularidad&quot;</span>, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Valores&quot;</span>)</span></code></pre></div>
 <p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 </div>

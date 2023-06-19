@@ -54,3 +54,10 @@ evaluación
 mae-y-rmse
 comparación-de-los-modelos-arima-y-holt-winters
 evaluación-del-modelo
+modelo-facebook-prophet
+analisis-de-predicción-de-los-modelos
+evaluación-del-modelo---mae-y-rmse-1
+comparación-de-los-modelos-arima-y-prophet
+redes-neuronales-recurrentes-modelos-elman-y-jordan
+estimación-del-error-comparativo-de-los-modelos-con-los-valores-actuales-observados.
+conclusiones-de-modelos-de-redes-neuronales-elman-y-jordan.

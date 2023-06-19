@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2023-05-24" />
+<meta name="date" content="2023-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -171,6 +179,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.6" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#evaluación-del-modelo---mae-y-rmse"><i class="fa fa-check"></i><b>6.6</b> Evaluación del Modelo - MAE y RMSE</a></li>
 <li class="chapter" data-level="6.7" data-path="aplicación-del-modelo-arima.html"><a href="aplicación-del-modelo-arima.html#comparación-de-los-modelos-arima-y-holt-winters"><i class="fa fa-check"></i><b>6.7</b> Comparación de los modelos ARIMA y Holt-Winters:</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="modelo-facebook-prophet.html"><a href="modelo-facebook-prophet.html"><i class="fa fa-check"></i><b>7</b> Modelo Facebook Prophet</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modelo-facebook-prophet.html"><a href="modelo-facebook-prophet.html#analisis-de-predicción-de-los-modelos"><i class="fa fa-check"></i><b>7.1</b> Analisis de predicción de los Modelos</a></li>
+<li class="chapter" data-level="7.2" data-path="modelo-facebook-prophet.html"><a href="modelo-facebook-prophet.html#evaluación-del-modelo---mae-y-rmse-1"><i class="fa fa-check"></i><b>7.2</b> Evaluación del Modelo - MAE y RMSE</a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-facebook-prophet.html"><a href="modelo-facebook-prophet.html#comparación-de-los-modelos-arima-y-prophet"><i class="fa fa-check"></i><b>7.3</b> Comparación de los modelos ARIMA y Prophet:</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"><a href="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"><i class="fa fa-check"></i><b>8</b> Redes Neuronales Recurrentes (Modelos Elman y Jordan)</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"><a href="redes-neuronales-recurrentes-modelos-elman-y-jordan.html#estimación-del-error-comparativo-de-los-modelos-con-los-valores-actuales-observados."><i class="fa fa-check"></i><b>8.1</b> Estimación del error Comparativo de los modelos con los valores actuales observados.</a></li>
+<li class="chapter" data-level="8.2" data-path="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"><a href="redes-neuronales-recurrentes-modelos-elman-y-jordan.html#conclusiones-de-modelos-de-redes-neuronales-elman-y-jordan."><i class="fa fa-check"></i><b>8.2</b> Conclusiones de modelos de redes neuronales ELMAN y JORDAN.</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -194,61 +213,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="análisis-exploratorio-inicial" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Análisis Exploratorio Inicial<a href="análisis-exploratorio-inicial.html#análisis-exploratorio-inicial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Primero, se llevará a cabo un análisis exploratorio de nuestra serie de interés “venta de vehículos (VEH)” para comprender mejor los datos y lograr identificar patrones y características importantes de esta variable. Así, se podran visualizar los datos y detectar patrones de tendencia, estacionalidad, ciclos, y ruido en la serie de tiempo. Esto es fundamental para elegir el modelo adecuado y para tomar decisiones informadas basadas en los datos de la serie.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="análisis-exploratorio-inicial.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar y cargar librerias necesarias para el proceso</span></span>
-<span id="cb1-2"><a href="análisis-exploratorio-inicial.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="análisis-exploratorio-inicial.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp2)</span>
-<span id="cb1-4"><a href="análisis-exploratorio-inicial.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-5"><a href="análisis-exploratorio-inicial.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)<span class="co"># Contiene el modelo ARIMA</span></span>
-<span id="cb1-6"><a href="análisis-exploratorio-inicial.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries) <span class="co">#Para series de tiempo</span></span>
-<span id="cb1-7"><a href="análisis-exploratorio-inicial.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TSA)     <span class="co">#Para series de tiempo</span></span>
-<span id="cb1-8"><a href="análisis-exploratorio-inicial.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(urca)    <span class="co">#Para hacer el Test de Raiz Unitaria (detectar hay o no estacionariedad)</span></span>
-<span id="cb1-9"><a href="análisis-exploratorio-inicial.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co">#Para hacer gráficos</span></span>
-<span id="cb1-10"><a href="análisis-exploratorio-inicial.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)   <span class="co">#Para la manipulación de datos (filtrar, seleccionar, agregar, transformar)</span></span>
-<span id="cb1-11"><a href="análisis-exploratorio-inicial.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)   <span class="co">#Se usa para diversas pruebas estadísticas (medias,varianza, arima,etc)</span></span>
-<span id="cb1-12"><a href="análisis-exploratorio-inicial.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(seasonal)<span class="co">#Para calcular la serie ajustada de estacionalidad</span></span>
-<span id="cb1-13"><a href="análisis-exploratorio-inicial.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)     <span class="co">#Para calcular la serie ajustada de estacionalidad</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="análisis-exploratorio-inicial.html#cb1-1" tabindex="-1"></a><span class="co"># Instalar y cargar librerias necesarias para el proceso</span></span>
+<span id="cb1-2"><a href="análisis-exploratorio-inicial.html#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="análisis-exploratorio-inicial.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(fpp2)</span>
+<span id="cb1-4"><a href="análisis-exploratorio-inicial.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-5"><a href="análisis-exploratorio-inicial.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(forecast)<span class="co"># Contiene el modelo ARIMA y Holt-Winters</span></span>
+<span id="cb1-6"><a href="análisis-exploratorio-inicial.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(tseries) <span class="co">#Para series de tiempo</span></span>
+<span id="cb1-7"><a href="análisis-exploratorio-inicial.html#cb1-7" tabindex="-1"></a><span class="fu">library</span>(TSA)     <span class="co">#Para series de tiempo</span></span>
+<span id="cb1-8"><a href="análisis-exploratorio-inicial.html#cb1-8" tabindex="-1"></a><span class="fu">library</span>(urca)    <span class="co">#Para hacer el Test de Raiz Unitaria (detectar hay o no estacionariedad)</span></span>
+<span id="cb1-9"><a href="análisis-exploratorio-inicial.html#cb1-9" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co">#Para hacer gráficos</span></span>
+<span id="cb1-10"><a href="análisis-exploratorio-inicial.html#cb1-10" tabindex="-1"></a><span class="fu">library</span>(dplyr)   <span class="co">#Para la manipulación de datos (filtrar, seleccionar, agregar, transformar)</span></span>
+<span id="cb1-11"><a href="análisis-exploratorio-inicial.html#cb1-11" tabindex="-1"></a><span class="fu">library</span>(stats)   <span class="co">#Se usa para diversas pruebas estadísticas (medias,varianza, arima,etc)</span></span>
+<span id="cb1-12"><a href="análisis-exploratorio-inicial.html#cb1-12" tabindex="-1"></a><span class="fu">library</span>(seasonal)<span class="co">#Para calcular la serie ajustada de estacionalidad</span></span>
+<span id="cb1-13"><a href="análisis-exploratorio-inicial.html#cb1-13" tabindex="-1"></a><span class="fu">library</span>(zoo)     <span class="co">#Para calcular la serie ajustada de estacionalidad</span></span>
+<span id="cb1-14"><a href="análisis-exploratorio-inicial.html#cb1-14" tabindex="-1"></a><span class="fu">library</span>(prophet) <span class="co">#Para es una biblioteca de Facebook que implementa el algoritmo Prophet para el pronóstico de series de tiempo.</span></span>
+<span id="cb1-15"><a href="análisis-exploratorio-inicial.html#cb1-15" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-16"><a href="análisis-exploratorio-inicial.html#cb1-16" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-17"><a href="análisis-exploratorio-inicial.html#cb1-17" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-18"><a href="análisis-exploratorio-inicial.html#cb1-18" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span></code></pre></div>
 <div id="serie-original" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Serie original<a href="análisis-exploratorio-inicial.html#serie-original" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Las variables de análisis es la venta de vehículos nuevos en Colombia. Son datos en frecuencia mensual, disponibles desde enero 2014 hasta febrero 2023.</p>
 <p>De acuerdo a la figura 1, se puede apreciar que el comercio de vehículos a nivel nacional en los dos último años se vió fuertemente afectado porla pandemia del Covid-19 y las restricciones de aislamiento y movilidad para contener el avance de la misma, especialmente durante el mes de abril 2020. En el año 2021 y 2022 se evidencia una fase de recuperación.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="análisis-exploratorio-inicial.html#cb2-1" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;C:/Users/portatil/DatosR/vehiculos_2-3.xlsx&quot;</span>)</span>
-<span id="cb2-2"><a href="análisis-exploratorio-inicial.html#cb2-2" aria-hidden="true" tabindex="-1"></a>veh<span class="ot">&lt;-</span><span class="fu">ts</span>(base<span class="sc">$</span>VEH[<span class="dv">1</span><span class="sc">:</span><span class="dv">110</span>], <span class="at">frequency=</span><span class="dv">12</span>, <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2014</span>,<span class="dv">1</span>))</span>
-<span id="cb2-3"><a href="análisis-exploratorio-inicial.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(veh,<span class="at">frequency=</span><span class="dv">12</span>,<span class="at">xlab=</span><span class="st">&quot;Años&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;No. de vehículos&quot;</span>,<span class="at">main=</span><span class="st">&quot;Figura 1. Venta de vehículos en Colombia (original)&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="análisis-exploratorio-inicial.html#cb2-1" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;C:/Users/portatil/DatosR/vehiculos_2-3.xlsx&quot;</span>)</span>
+<span id="cb2-2"><a href="análisis-exploratorio-inicial.html#cb2-2" tabindex="-1"></a>veh<span class="ot">&lt;-</span><span class="fu">ts</span>(base<span class="sc">$</span>VEH[<span class="dv">1</span><span class="sc">:</span><span class="dv">110</span>], <span class="at">frequency=</span><span class="dv">12</span>, <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2014</span>,<span class="dv">1</span>))</span>
+<span id="cb2-3"><a href="análisis-exploratorio-inicial.html#cb2-3" tabindex="-1"></a><span class="fu">autoplot</span>(veh,<span class="at">frequency=</span><span class="dv">12</span>,<span class="at">xlab=</span><span class="st">&quot;Años&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;No. de vehículos&quot;</span>,<span class="at">main=</span><span class="st">&quot;Figura 1. Venta de vehículos en Colombia (original)&quot;</span>) </span></code></pre></div>
 <p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 <div id="promedio-móvil" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Promedio móvil<a href="análisis-exploratorio-inicial.html#promedio-móvil" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El cálculo del promedio móvil es una técnica común utilizada en el análisis de series de tiempo para suavizar los datos y reducir el ruido. El objetivo es reducir la variabilidad en los datos, lo que puede hacer que las tendencias subyacentes sean más visibles. En esta caso se usará un promedio móvil de orden 3 para no perder tanta información relevante, sobretdo en los últimos dos años de análisis (2021-2022) en donde la economia nacional sufrió un choque sin precendentes. En la Figura 2. Se observa que el MA(3) suaviza la serie temporal original y elimina la mayoría de las fluctuaciones de corto plazo. Para finales del año 2022, se puede afirmar que la venta de vehículos refleja una tendencia decreciente.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="análisis-exploratorio-inicial.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
-<span id="cb3-2"><a href="análisis-exploratorio-inicial.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Calcular promedio móvil de orden 3</span></span>
-<span id="cb3-3"><a href="análisis-exploratorio-inicial.html#cb3-3" aria-hidden="true" tabindex="-1"></a>promovil<span class="ot">&lt;-</span> <span class="fu">ma</span>(veh, <span class="at">order =</span> <span class="dv">3</span>)</span>
-<span id="cb3-4"><a href="análisis-exploratorio-inicial.html#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="análisis-exploratorio-inicial.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficar serie original y promedio móvil</span></span>
-<span id="cb3-6"><a href="análisis-exploratorio-inicial.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb3-7"><a href="análisis-exploratorio-inicial.html#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">index</span>(veh), <span class="at">y =</span> veh, <span class="at">color =</span> <span class="st">&quot;Serie original&quot;</span>)) <span class="sc">+</span> </span>
-<span id="cb3-8"><a href="análisis-exploratorio-inicial.html#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">index</span>(promovil), <span class="at">y =</span> promovil, <span class="at">color =</span> <span class="st">&quot;Promedio móvil MA(3)&quot;</span>)) <span class="sc">+</span> </span>
-<span id="cb3-9"><a href="análisis-exploratorio-inicial.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Figura 2. Venta de vehículos con promedio móvil MA(3)&quot;</span>,</span>
-<span id="cb3-10"><a href="análisis-exploratorio-inicial.html#cb3-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Mes-Año&quot;</span>,</span>
-<span id="cb3-11"><a href="análisis-exploratorio-inicial.html#cb3-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Número de vehículos&quot;</span>,</span>
-<span id="cb3-12"><a href="análisis-exploratorio-inicial.html#cb3-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb3-13"><a href="análisis-exploratorio-inicial.html#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb3-14"><a href="análisis-exploratorio-inicial.html#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Serie original&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>, <span class="st">&quot;Promedio móvil MA(3)&quot;</span> <span class="ot">=</span> <span class="st">&quot;purple&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="análisis-exploratorio-inicial.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb3-2"><a href="análisis-exploratorio-inicial.html#cb3-2" tabindex="-1"></a><span class="co">#Calcular promedio móvil de orden 3</span></span>
+<span id="cb3-3"><a href="análisis-exploratorio-inicial.html#cb3-3" tabindex="-1"></a>promovil<span class="ot">&lt;-</span> <span class="fu">ma</span>(veh, <span class="at">order =</span> <span class="dv">3</span>)</span>
+<span id="cb3-4"><a href="análisis-exploratorio-inicial.html#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="análisis-exploratorio-inicial.html#cb3-5" tabindex="-1"></a><span class="co"># Graficar serie original y promedio móvil</span></span>
+<span id="cb3-6"><a href="análisis-exploratorio-inicial.html#cb3-6" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb3-7"><a href="análisis-exploratorio-inicial.html#cb3-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">index</span>(veh), <span class="at">y =</span> veh, <span class="at">color =</span> <span class="st">&quot;Serie original&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb3-8"><a href="análisis-exploratorio-inicial.html#cb3-8" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">index</span>(promovil), <span class="at">y =</span> promovil, <span class="at">color =</span> <span class="st">&quot;Promedio móvil MA(3)&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb3-9"><a href="análisis-exploratorio-inicial.html#cb3-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Figura 2. Venta de vehículos con promedio móvil MA(3)&quot;</span>,</span>
+<span id="cb3-10"><a href="análisis-exploratorio-inicial.html#cb3-10" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Mes-Año&quot;</span>,</span>
+<span id="cb3-11"><a href="análisis-exploratorio-inicial.html#cb3-11" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Número de vehículos&quot;</span>,</span>
+<span id="cb3-12"><a href="análisis-exploratorio-inicial.html#cb3-12" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb3-13"><a href="análisis-exploratorio-inicial.html#cb3-13" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb3-14"><a href="análisis-exploratorio-inicial.html#cb3-14" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Serie original&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>, <span class="st">&quot;Promedio móvil MA(3)&quot;</span> <span class="ot">=</span> <span class="st">&quot;purple&quot;</span>))</span></code></pre></div>
 <p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="análisis-de-rezagos" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Análisis de rezagos<a href="análisis-exploratorio-inicial.html#análisis-de-rezagos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para saber cuántas veces debes rezagar una serie de tiempo, es importante analizar la naturaleza de los datos y el objetivo del análisis que se está llevando a cabo. Una forma de determinar la cantidad adecuada de retrasos es mediante la prueba de autocorrelación parcial (PACF), que permite identificar los retardos significativos en una serie de tiempo.</p>
 <p>La PACF es una medida de la correlación entre una observación y una observación retrasada, controlando el efecto de las observaciones intermedias. Un retraso significativo en la PACF puede indicar que ese número de retrasos es importante para explicar la serie de tiempo.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="análisis-exploratorio-inicial.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb4-2"><a href="análisis-exploratorio-inicial.html#cb4-2" aria-hidden="true" tabindex="-1"></a>pacf_veh<span class="ot">&lt;-</span> <span class="fu">pacf</span>(veh)</span>
-<span id="cb4-3"><a href="análisis-exploratorio-inicial.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pacf_veh)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="análisis-exploratorio-inicial.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb4-2"><a href="análisis-exploratorio-inicial.html#cb4-2" tabindex="-1"></a>pacf_veh<span class="ot">&lt;-</span> <span class="fu">pacf</span>(veh)</span>
+<span id="cb4-3"><a href="análisis-exploratorio-inicial.html#cb4-3" tabindex="-1"></a><span class="fu">plot</span>(pacf_veh)</span></code></pre></div>
 <p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>En la gráfica de la PAFC anterior, se observa que un rezago es importante para explicar la serie. Por ende, a continuación aplicamos 1 reago a la serie original de vehículos:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="análisis-exploratorio-inicial.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb5-2"><a href="análisis-exploratorio-inicial.html#cb5-2" aria-hidden="true" tabindex="-1"></a>rez_veh <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">lag</span>(veh, <span class="at">k =</span> <span class="dv">1</span>)</span>
-<span id="cb5-3"><a href="análisis-exploratorio-inicial.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veh, <span class="at">main =</span> <span class="st">&quot;Serie original y rezagada&quot;</span>)</span>
-<span id="cb5-4"><a href="análisis-exploratorio-inicial.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(rez_veh, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb5-5"><a href="análisis-exploratorio-inicial.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Serie original&quot;</span>, <span class="st">&quot;Serie rezagada&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="análisis-exploratorio-inicial.html#cb5-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb5-2"><a href="análisis-exploratorio-inicial.html#cb5-2" tabindex="-1"></a>rez_veh <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">lag</span>(veh, <span class="at">k =</span> <span class="dv">1</span>)</span>
+<span id="cb5-3"><a href="análisis-exploratorio-inicial.html#cb5-3" tabindex="-1"></a><span class="fu">plot</span>(veh, <span class="at">main =</span> <span class="st">&quot;Serie original y rezagada&quot;</span>)</span>
+<span id="cb5-4"><a href="análisis-exploratorio-inicial.html#cb5-4" tabindex="-1"></a><span class="fu">lines</span>(rez_veh, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb5-5"><a href="análisis-exploratorio-inicial.html#cb5-5" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Serie original&quot;</span>, <span class="st">&quot;Serie rezagada&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 Se concluye que rezagar la serie de tiempo de vehículos ayuda a identificar patrones y relaciones que pueden ser útiles en el análisis y pronóstico de la variable.</p>
 </div>
@@ -256,7 +280,7 @@ Se concluye que rezagar la serie de tiempo de vehículos ayuda a identificar pat
 <h2><span class="header-section-number">3.4</span> Estacionalidad<a href="análisis-exploratorio-inicial.html#estacionalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Una forma útil de saber si la venta de vehículos tiene estacionalidad, es calcular la función acf que devuelve un gráfico que muestra los coeficientes de correlación para cada rezago. Si la serie de tiempo tiene estacionalidad, se esperaría ver picos en los coeficientes de correlación en los múltiplos de la frecuencia de la serie (por ejemplo, si la frecuencia es mensual, se esperaría ver picos en los coeficientes de correlación para los rezagos 12, 24, 36, etc.). Estos picos indicarían la presencia de patrones de repetición en la serie, lo que sugiere la presencia de estacionalidad.</p>
 <p>En este sentido, con la gráfica de ACF de la venta de vehículos que se muestra a continuación se afirma que existe un componente estacional en la venta de vehículos, es decir, por ejemplo que la venta de vehículos en Colombia incrementa en el mes de diciembre de cada año y disminuye en enero. Este comportamiento tiene una relación estrecha con la evolución del consumo, en donde, la temporada decembrina refleja un mayor gasto por parte de los hogares colombianos.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="análisis-exploratorio-inicial.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(veh, <span class="at">lag.max =</span> <span class="dv">48</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="análisis-exploratorio-inicial.html#cb6-1" tabindex="-1"></a><span class="fu">acf</span>(veh, <span class="at">lag.max =</span> <span class="dv">48</span>)</span></code></pre></div>
 <p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 </div>

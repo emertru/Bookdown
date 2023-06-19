@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Predicción de la venta de vehiculos en Colombia</title>
+  <title>Chapter 7 Modelo Facebook Prophet | Predicción de la venta de vehiculos en Colombia</title>
   <meta name="description" content="Asignatura: Series de Tiempo" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Predicción de la venta de vehiculos en Colombia" />
+  <meta property="og:title" content="Chapter 7 Modelo Facebook Prophet | Predicción de la venta de vehiculos en Colombia" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Asignatura: Series de Tiempo" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Predicción de la venta de vehiculos en Colombia" />
+  <meta name="twitter:title" content="Chapter 7 Modelo Facebook Prophet | Predicción de la venta de vehiculos en Colombia" />
   
   <meta name="twitter:description" content="Asignatura: Series de Tiempo" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="introducción.html"/>
+<link rel="prev" href="aplicación-del-modelo-arima.html"/>
+<link rel="next" href="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -210,26 +210,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Predicción de la venta de vehiculos en Colombia</h1>
-<p class="author"><em></em></p>
-<p class="date"><em>2023-06-18</em></p>
+<div id="modelo-facebook-prophet" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Modelo Facebook Prophet<a href="modelo-facebook-prophet.html#modelo-facebook-prophet" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El modelo Facebook Prophet es una herramienta útil para el análisis y pronóstico de series de tiempo debido a su facilidad de uso, flexibilidad en la configuración del modelo, capacidad de manejo de tendencias y estacionalidades, robustez ante datos faltantes y anomalías, y la disponibilidad de herramientas de visualización y diagnóstico. Esto lo convierte en una opción popular para aplicaciones prácticas en una amplia gama de sectores, incluyendo finanzas, comercio electrónico, planificación de la demanda, entre otros.
+Para nuestro caso de ventas de vehiculos en Colombia inicimos ajuste del modelo para evaluar rendimeinto:</p>
+<p>Creamos la serie de tiempo</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="modelo-facebook-prophet.html#cb35-1" tabindex="-1"></a>veh <span class="ot">&lt;-</span> <span class="fu">ts</span>(base<span class="sc">$</span>VEH[<span class="dv">1</span><span class="sc">:</span><span class="dv">110</span>], <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2014</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>Ajustamos el modelo ARIMA</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="modelo-facebook-prophet.html#cb36-1" tabindex="-1"></a>arima_model <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">auto.arima</span>(veh)</span></code></pre></div>
+<p>Ajustamos el modelo Prophet</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="modelo-facebook-prophet.html#cb37-1" tabindex="-1"></a>veh_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ds =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2014-01-01&quot;</span>), <span class="at">by =</span> <span class="st">&quot;month&quot;</span>, <span class="at">length.out =</span> <span class="dv">110</span>), <span class="at">y =</span> base<span class="sc">$</span>VEH[<span class="dv">1</span><span class="sc">:</span><span class="dv">110</span>])</span>
+<span id="cb37-2"><a href="modelo-facebook-prophet.html#cb37-2" tabindex="-1"></a>prophet_model <span class="ot">&lt;-</span> <span class="fu">prophet</span>(veh_data)</span></code></pre></div>
+<p>Generamos pronósticos</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="modelo-facebook-prophet.html#cb38-1" tabindex="-1"></a>horizon <span class="ot">&lt;-</span> <span class="dv">12</span>  <span class="co"># Número de períodos para pronosticar</span></span>
+<span id="cb38-2"><a href="modelo-facebook-prophet.html#cb38-2" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="modelo-facebook-prophet.html#cb38-3" tabindex="-1"></a><span class="co"># Pronóstico ARIMA</span></span>
+<span id="cb38-4"><a href="modelo-facebook-prophet.html#cb38-4" tabindex="-1"></a>arima_forecast <span class="ot">&lt;-</span> <span class="fu">forecast</span>(arima_model, <span class="at">h =</span> horizon)</span>
+<span id="cb38-5"><a href="modelo-facebook-prophet.html#cb38-5" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="modelo-facebook-prophet.html#cb38-6" tabindex="-1"></a><span class="co"># Pronóstico Prophet</span></span>
+<span id="cb38-7"><a href="modelo-facebook-prophet.html#cb38-7" tabindex="-1"></a>future_data <span class="ot">&lt;-</span> <span class="fu">make_future_dataframe</span>(prophet_model, <span class="at">periods =</span> horizon, <span class="at">freq =</span> <span class="st">&quot;month&quot;</span>)</span>
+<span id="cb38-8"><a href="modelo-facebook-prophet.html#cb38-8" tabindex="-1"></a>prophet_forecast <span class="ot">&lt;-</span> <span class="fu">predict</span>(prophet_model, future_data)</span>
+<span id="cb38-9"><a href="modelo-facebook-prophet.html#cb38-9" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="modelo-facebook-prophet.html#cb38-10" tabindex="-1"></a><span class="co"># Convertir los pronósticos de Prophet a una serie de tiempo</span></span>
+<span id="cb38-11"><a href="modelo-facebook-prophet.html#cb38-11" tabindex="-1"></a>prophet_forecast_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(prophet_forecast<span class="sc">$</span>yhat, <span class="at">frequency =</span> horizon, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2014</span>, <span class="dv">1</span>))</span>
+<span id="cb38-12"><a href="modelo-facebook-prophet.html#cb38-12" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="modelo-facebook-prophet.html#cb38-13" tabindex="-1"></a><span class="co"># Graficar los pronósticos y los datos originales</span></span>
+<span id="cb38-14"><a href="modelo-facebook-prophet.html#cb38-14" tabindex="-1"></a><span class="fu">plot</span>(veh, <span class="at">xlab =</span> <span class="st">&quot;Años&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;No. de vehículos&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Venta de vehículos en Colombia (original)&quot;</span>)</span>
+<span id="cb38-15"><a href="modelo-facebook-prophet.html#cb38-15" tabindex="-1"></a><span class="fu">lines</span>(arima_forecast<span class="sc">$</span>mean, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb38-16"><a href="modelo-facebook-prophet.html#cb38-16" tabindex="-1"></a><span class="fu">lines</span>(prophet_forecast_ts, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb38-17"><a href="modelo-facebook-prophet.html#cb38-17" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Datos originales&quot;</span>, <span class="st">&quot;ARIMA&quot;</span>, <span class="st">&quot;Prophet&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Series-de-Tiempo_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div id="analisis-de-predicción-de-los-modelos" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Analisis de predicción de los Modelos<a href="modelo-facebook-prophet.html#analisis-de-predicción-de-los-modelos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al comparar los datos que predice cada modelo en el futuro, es evidente que el modelo Prophet presenta una mejor capacidad para capturar las fluctuaciones y patrones en la serie de tiempo de ventas de vehículos en Colombia. Los pronósticos generados por Prophet se ajustan más de cerca a los datos reales y reflejan de manera más precisa las tendencias observadas en la serie.</p>
+<p>En contraste, los pronósticos del modelo ARIMA muestran ciertas desviaciones y no logran capturar completamente las variaciones en la serie de tiempo. Esto se puede observar al comparar las líneas de pronóstico en los períodos futuros. Mientras que los pronósticos de Prophet siguen de cerca las fluctuaciones y cambios en la serie, los pronósticos de ARIMA pueden estar más alejados de los valores reales y no reflejar con precisión las tendencias observadas.</p>
+<p>Esto se confirma al evaluar las métricas de desempeño (MAE y RMSE), donde el modelo Prophet muestra valores más bajos en comparación con el modelo ARIMA. Un MAE y RMSE más bajo indica una mayor precisión en los pronósticos, lo que respalda aún más la superioridad de Prophet en términos de predicción de la serie de tiempo.</p>
 </div>
-<div id="presentación" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> <strong><em>Presentación</em></strong><a href="index.html#presentación" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><span class="math inline">\(Maestría\)</span> <span class="math inline">\(en\)</span> <span class="math inline">\(Ciencia\)</span> <span class="math inline">\(de\)</span> <span class="math inline">\(Datos\)</span></p>
-<p>Asignatura:</p>
-<p><span class="math inline">\(Series\)</span> <span class="math inline">\(de\)</span> <span class="math inline">\(Tiempo\)</span></p>
-<p>Integrantes:</p>
-<p><strong><span class="math inline">\(Julieth\)</span> <span class="math inline">\(Cerón\)</span>, <span class="math inline">\(Miguel\)</span> <span class="math inline">\(Rodríguez\)</span> <span class="math inline">\(y\)</span> <span class="math inline">\(Emerson\)</span> <span class="math inline">\(Trujillo\)</span></strong></p>
+<div id="evaluación-del-modelo---mae-y-rmse-1" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Evaluación del Modelo - MAE y RMSE<a href="modelo-facebook-prophet.html#evaluación-del-modelo---mae-y-rmse-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Calculamos MAE y RMSE para ARIMA</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="modelo-facebook-prophet.html#cb39-1" tabindex="-1"></a>arima_forecast_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(arima_forecast<span class="sc">$</span>mean)</span>
+<span id="cb39-2"><a href="modelo-facebook-prophet.html#cb39-2" tabindex="-1"></a>mae_arima <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(arima_forecast_values <span class="sc">-</span> veh))</span>
+<span id="cb39-3"><a href="modelo-facebook-prophet.html#cb39-3" tabindex="-1"></a>rmse_arima <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((arima_forecast_values <span class="sc">-</span> veh)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<p>Calculamos MAE y RMSE para Prophet</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="modelo-facebook-prophet.html#cb40-1" tabindex="-1"></a>mae_prophet <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(prophet_forecast_ts <span class="sc">-</span> veh))</span>
+<span id="cb40-2"><a href="modelo-facebook-prophet.html#cb40-2" tabindex="-1"></a>rmse_prophet <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((prophet_forecast_ts <span class="sc">-</span> veh)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<p>Imprimimos resultados</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="modelo-facebook-prophet.html#cb41-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;ARIMA - MAE:&quot;</span>, mae_arima, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## ARIMA - MAE: 4910.315</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="modelo-facebook-prophet.html#cb43-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;ARIMA - RMSE:&quot;</span>, rmse_arima, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## ARIMA - RMSE: 6504.895</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="modelo-facebook-prophet.html#cb45-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Prophet - MAE:&quot;</span>, mae_prophet, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Prophet - MAE: 2330.432</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="modelo-facebook-prophet.html#cb47-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Prophet - RMSE:&quot;</span>, rmse_prophet, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Prophet - RMSE: 3220.954</code></pre>
+</div>
+<div id="comparación-de-los-modelos-arima-y-prophet" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Comparación de los modelos ARIMA y Prophet:<a href="modelo-facebook-prophet.html#comparación-de-los-modelos-arima-y-prophet" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Comparando los valores de MAE y RMSE, podemos observar que el modelo Prophet tiene un mejor desempeño en términos de precisión en los pronósticos en comparación con el modelo ARIMA. Esto se evidencia en los valores más bajos tanto en el MAE como en el RMSE para el modelo Prophet.</p>
+<p>El MAE para el modelo Prophet es de 2330.432, lo que indica una menor diferencia absoluta promedio entre los valores pronosticados y los valores reales. Por otro lado, el MAE para el modelo ARIMA es de 4910.315, lo que implica una mayor diferencia promedio entre los pronósticos y los valores reales.</p>
+<p>En cuanto al RMSE, el modelo Prophet también muestra un mejor desempeño con un valor de 3220.954, en comparación con el modelo ARIMA que tiene un RMSE de 6504.895. Esto indica que el modelo Prophet tiene una menor magnitud de error cuadrático medio en comparación con el modelo ARIMA.</p>
+<p>Estos resultados sugieren que el modelo Prophet es más preciso en la predicción de la serie de tiempo de ventas de vehículos en Colombia, en comparación con el modelo ARIMA utilizado en este análisis.</p>
+<p>En conclusión, en base a los resultados obtenidos, el modelo Prophet muestra un mejor desempeño en términos de precisión en los pronósticos para la serie de tiempo de ventas de vehículos en Colombia, con valores más bajos tanto en el MAE como en el RMSE.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="introducción.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="aplicación-del-modelo-arima.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="redes-neuronales-recurrentes-modelos-elman-y-jordan.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

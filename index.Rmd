@@ -81,7 +81,7 @@ Primero, se llevará a cabo un análisis exploratorio de nuestra serie de inter�
 
 library(fpp2)
 library(readxl)
-library(forecast)# Contiene el modelo ARIMA
+library(forecast)# Contiene el modelo ARIMA y Holt-Winters
 library(tseries) #Para series de tiempo
 library(TSA)     #Para series de tiempo
 library(urca)    #Para hacer el Test de Raiz Unitaria (detectar hay o no estacionariedad)
@@ -90,6 +90,12 @@ library(dplyr)   #Para la manipulación de datos (filtrar, seleccionar, agregar,
 library(stats)   #Se usa para diversas pruebas estadísticas (medias,varianza, arima,etc)
 library(seasonal)#Para calcular la serie ajustada de estacionalidad
 library(zoo)     #Para calcular la serie ajustada de estacionalidad
+library(prophet) #Para es una biblioteca de Facebook que implementa el algoritmo Prophet para el pronóstico de series de tiempo.
+library(tidyverse)
+library(lubridate)
+library(tidyverse)
+library(quantmod)
+
 ```
 
 ## Serie original
@@ -419,3 +425,360 @@ Un valor de MAE más bajo indica que el modelo ARIMA tiene una mejor precisión 
 El modelo ARIMA tiene un RMSE de 2912.711, mientras que el modelo Holt-Winters tiene un RMSE de 3263.144.
 En términos del RMSE, el modelo ARIMA muestra un valor más bajo, lo que indica un menor error cuadrático promedio en comparación con el modelo Holt-Winters.
 Un valor de RMSE más bajo también indica que el modelo ARIMA tiene un mejor ajuste y mayor precisión en los pronósticos en comparación con el modelo Holt-Winters.
+
+# Modelo Facebook Prophet
+
+El modelo Facebook Prophet es una herramienta útil para el análisis y pronóstico de series de tiempo debido a su facilidad de uso, flexibilidad en la configuración del modelo, capacidad de manejo de tendencias y estacionalidades, robustez ante datos faltantes y anomalías, y la disponibilidad de herramientas de visualización y diagnóstico. Esto lo convierte en una opción popular para aplicaciones prácticas en una amplia gama de sectores, incluyendo finanzas, comercio electrónico, planificación de la demanda, entre otros.
+Para nuestro caso de ventas de vehiculos en Colombia inicimos ajuste del modelo para evaluar rendimeinto:
+
+Creamos la serie de tiempo
+```{r message=FALSE, warning=FALSE}
+veh <- ts(base$VEH[1:110], frequency = 12, start = c(2014, 1))
+```
+
+Ajustamos el modelo ARIMA
+```{r message=FALSE, warning=FALSE}
+arima_model <- forecast::auto.arima(veh)
+
+```
+
+Ajustamos el modelo Prophet
+```{r message=FALSE, warning=FALSE}
+veh_data <- data.frame(ds = seq(as.Date("2014-01-01"), by = "month", length.out = 110), y = base$VEH[1:110])
+prophet_model <- prophet(veh_data)
+```
+
+Generamos pronósticos
+
+```{r message=FALSE, warning=FALSE}
+
+horizon <- 12  # Número de períodos para pronosticar
+
+# Pronóstico ARIMA
+arima_forecast <- forecast(arima_model, h = horizon)
+
+# Pronóstico Prophet
+future_data <- make_future_dataframe(prophet_model, periods = horizon, freq = "month")
+prophet_forecast <- predict(prophet_model, future_data)
+
+# Convertir los pronósticos de Prophet a una serie de tiempo
+prophet_forecast_ts <- ts(prophet_forecast$yhat, frequency = horizon, start = c(2014, 1))
+
+# Graficar los pronósticos y los datos originales
+plot(veh, xlab = "Años", ylab = "No. de vehículos", main = "Venta de vehículos en Colombia (original)")
+lines(arima_forecast$mean, col = "blue", lty = 1)
+lines(prophet_forecast_ts, col = "red", lty = 1)
+legend("topleft", legend = c("Datos originales", "ARIMA", "Prophet"), col = c("black", "blue", "red"), lty = c(1, 1, 1))
+
+```
+
+## Analisis de predicción de los Modelos
+
+Al comparar los datos que predice cada modelo en el futuro, es evidente que el modelo Prophet presenta una mejor capacidad para capturar las fluctuaciones y patrones en la serie de tiempo de ventas de vehículos en Colombia. Los pronósticos generados por Prophet se ajustan más de cerca a los datos reales y reflejan de manera más precisa las tendencias observadas en la serie.
+
+En contraste, los pronósticos del modelo ARIMA muestran ciertas desviaciones y no logran capturar completamente las variaciones en la serie de tiempo. Esto se puede observar al comparar las líneas de pronóstico en los períodos futuros. Mientras que los pronósticos de Prophet siguen de cerca las fluctuaciones y cambios en la serie, los pronósticos de ARIMA pueden estar más alejados de los valores reales y no reflejar con precisión las tendencias observadas.
+
+Esto se confirma al evaluar las métricas de desempeño (MAE y RMSE), donde el modelo Prophet muestra valores más bajos en comparación con el modelo ARIMA. Un MAE y RMSE más bajo indica una mayor precisión en los pronósticos, lo que respalda aún más la superioridad de Prophet en términos de predicción de la serie de tiempo.
+
+
+
+##  Evaluación del Modelo - MAE y RMSE
+
+
+Calculamos MAE y RMSE para ARIMA
+
+```{r message=FALSE, warning=FALSE}
+arima_forecast_values <- as.numeric(arima_forecast$mean)
+mae_arima <- mean(abs(arima_forecast_values - veh))
+rmse_arima <- sqrt(mean((arima_forecast_values - veh)^2))
+```
+
+Calculamos MAE y RMSE para Prophet
+
+```{r message=FALSE, warning=FALSE}
+mae_prophet <- mean(abs(prophet_forecast_ts - veh))
+rmse_prophet <- sqrt(mean((prophet_forecast_ts - veh)^2))
+```
+
+Imprimimos resultados
+```{r message=FALSE, warning=FALSE}
+
+cat("ARIMA - MAE:", mae_arima, "\n")
+cat("ARIMA - RMSE:", rmse_arima, "\n")
+cat("Prophet - MAE:", mae_prophet, "\n")
+cat("Prophet - RMSE:", rmse_prophet, "\n")
+
+```
+
+## Comparación de los modelos ARIMA y Prophet:
+
+Comparando los valores de MAE y RMSE, podemos observar que el modelo Prophet tiene un mejor desempeño en términos de precisión en los pronósticos en comparación con el modelo ARIMA. Esto se evidencia en los valores más bajos tanto en el MAE como en el RMSE para el modelo Prophet.
+
+El MAE para el modelo Prophet es de 2330.432, lo que indica una menor diferencia absoluta promedio entre los valores pronosticados y los valores reales. Por otro lado, el MAE para el modelo ARIMA es de 4910.315, lo que implica una mayor diferencia promedio entre los pronósticos y los valores reales.
+
+En cuanto al RMSE, el modelo Prophet también muestra un mejor desempeño con un valor de 3220.954, en comparación con el modelo ARIMA que tiene un RMSE de 6504.895. Esto indica que el modelo Prophet tiene una menor magnitud de error cuadrático medio en comparación con el modelo ARIMA.
+
+Estos resultados sugieren que el modelo Prophet es más preciso en la predicción de la serie de tiempo de ventas de vehículos en Colombia, en comparación con el modelo ARIMA utilizado en este análisis.
+
+En conclusión, en base a los resultados obtenidos, el modelo Prophet muestra un mejor desempeño en términos de precisión en los pronósticos para la serie de tiempo de ventas de vehículos en Colombia, con valores más bajos tanto en el MAE como en el RMSE.
+
+
+# Redes Neuronales Recurrentes (Modelos Elman y Jordan)
+
+
+Una red neuronal recurrente no tiene una estructura de capas definida, sino que permiten conexiones arbitrarias entre las neuronas, incluso pudiendo crear ciclos, con esto se consigue crear la temporalidad, permitiendo que la red tenga memoria.
+
+Los RNN se denominan recurrentes porque realizan la misma tarea para cada elemento de una secuencia, y la salida depende de los cálculos anteriores.
+
+**MODELO ELMAN**
+
+En las redes de Elman, las entradas de estas neuronas, se toman desde las salidas de las neuronas de una de las capas ocultas, y sus salidas se conectan de nuevo en las entradas de esta misma capa, lo que proporciona una especie de memoria sobre el estado anterior de dicha capa.
+
+Creamos la serie de tiempo
+
+```{r message=FALSE, warning=FALSE}
+veh <- read_excel("C:/Users/portatil/DatosR/veh.xlsx")
+Y=ts(veh, start = c(2014,1),frequency = 12)
+
+```
+
+Damos formato de serie de tiempo
+```{r}
+Y1=ts(veh, start = c(2014,1), end=c(2022,02),frequency = 12)
+length(Y1)
+```
+
+Para aplicar redes neuronales debemos normalizar datos
+Para ello hemos asociado a nuestro dataset de base una variable “Z” y a partir de esta hemos realizar la normalización a través de la variable “S”.
+
+```{r message=FALSE, warning=FALSE}
+Z <- as.ts(Y1,F)
+S <- (Z-min(Z))/(max(Z)-min(Z))  
+plot(S)
+
+```
+
+A continuación comprobamos el numero de filas totales que contiene nuestro dataset.
+```{r message=FALSE, warning=FALSE}
+tamano_total <- length(S)
+tamano_total
+```
+
+Ahora dividiremos los conjuntos de entrenamiento en un 75% y prueba en un 25% respectivamente.
+```{r message=FALSE, warning=FALSE}
+tamano_train <- round(tamano_total*0.75, digits = 0)
+train <- 0:(tamano_train-1)
+train
+```
+```{r}
+test <- (tamano_train):tamano_total
+test
+```
+
+Ahora crearemos un dataframe con n columnas, cada una de las cuales adelantara 
+un valor de la serie en el futuro, a través de una variable tipo zoo, equivalente al #periodo de retardo de la serie.
+```{r message=FALSE, warning=FALSE}
+
+y <- as.zoo(S)
+x1 <- Lag(y, k = 1)
+x2 <- Lag(y, k = 2)
+x3 <- Lag(y, k = 3)
+x4 <- Lag(y, k = 4)
+x5 <- Lag(y, k = 5)
+x6 <- Lag(y, k = 6)
+x7 <- Lag(y, k = 7)
+x8 <- Lag(y, k = 8)
+x9 <- Lag(y, k = 9)
+x10 <- Lag(y, k = 10)
+x11 <- Lag(y, k = 11)
+x12 <- Lag(y, k = 12)
+slogN <- cbind(y,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12)
+```
+```{r message=FALSE, warning=FALSE}
+DT::datatable(slogN)
+```
+A continuación eliminaremos los valores NA producidos al desplazar la serie:
+```{r message=FALSE, warning=FALSE}
+slogN1 <- slogN[-(1:12),]
+DT::datatable(slogN1)
+```
+
+Luego definimos los valores de entrada y salida de la red neuronal:
+```{r}
+
+inputs <- slogN1[,2:13]
+outputs <- slogN1[,1]
+```
+
+
+Ahora crearemos la red de Elman, probando diferentes tipos de combinaciones de neuronas en las capas ocultas e iteraciones máximas, ademas del ritmo de aprendizaje, para ajustar lo mejor posible la curva de predicción a la del modelo de la serie. De esta forma hemos llegado a estos valores a la hora de crear nuestra red. Asi mismo ponemos una semilla para que el resultado sea reproducible.
+
+```{r message=FALSE, warning=FALSE}
+library(RSNNS)
+set.seed(42)
+fit<-elman(inputs[train],outputs[train],size=5,learnFuncParams=c(0.1),
+                  maxit=10000)
+```
+
+```{r message=FALSE, warning=FALSE}
+#En la gráfica siguiente vemos como evoluciona el error de la red con el numero de iteraciones para los parámetros expuestos.
+
+plotIterativeError(fit, main = "Iterative Error for 5 Neuron")
+```
+En la gráfica anterior se observa una convergencia rápida hacia cero, se espera entonces un ajuste rápido del modelo.
+
+Ahora realizamos la predicción con el resto de los términos de la serie que son los datos #seleccionados para test, pasamos pues una vez entrenada a probarla y a representarla #graficamente para ver el ajuste del modelo.
+
+```{r message=FALSE, warning=FALSE}
+y <- as.vector(outputs[-test])
+plot(y,type="l")
+pred <- predict(fit, inputs[-test])
+lines(pred,col = "red")
+legend("topleft", legend = c("Datos Reales", "Datos Predichos"), 
+       col = c("black", "red"), lty = c(1, 1))
+
+```
+**El ajuste  predice bastante bien con los parametros elegidos, pues la curva del modelo de la serie y la de la prediccion parecen bastante ajustadas.**
+
+Esta representacion grafica se puede utilizar para ir ajustando la prediccion y el modelo a medida que vamos probando diferentes parametros de la red de Elman, de forma que la curva del modelo y de la prediccion queden lo mas ajustados posibles.
+
+Ahora gracias al efecto memoria vamos a adelantarle a la serie al menos en un valor con una precision muy buena. Para ello volveremos a introducir los datos de entrenamiento.
+
+```{r message=FALSE, warning=FALSE}
+
+predictions <- predict(fit,inputs[-train])
+predictions
+
+```
+
+Posteriori desnormalizaremos los datos:
+```{r message=FALSE, warning=FALSE}
+mod1 <- predictions*(max(Z)-min(Z))+min(Z)
+mod1
+```
+
+Aquí vemos la gráfica con los valores pronosticados con la linea roja.
+-Los valores que adelantamos en el tiempo corresponden a mod1, de los cuales adelantaremos 12 meses a futuro para nuestro estudio.
+
+Ahora veamos la representación de los valores predecidos para el siguiente periodo.
+```{r message=FALSE, warning=FALSE}
+x <- 1:(tamano_total+length(mod1))
+y <- c(as.vector(Z),mod1)
+plot(x[1:tamano_total], y[1:tamano_total],col = "blue", type="l")
+lines( x[(tamano_total):length(x)], y[(tamano_total):length(x)], col="red")
+
+length(y)
+```
+
+
+**MODELO JORDAN**
+
+En las redes Jordan, la diferencia esta en que la entrada de las neuronas de la capa de contexto se toma desde la salida de la red.
+
+Realizamos las mismas operaciones que con la red Elman, sustituyendo el modelo, obtenemos el resultado para la red Jordan.
+
+```{r message=FALSE, warning=FALSE}
+set.seed(42)
+fit <-jordan(inputs[train],outputs[train],size=5,learnFuncParams=c(0.1),
+             maxit=35000)
+
+plotIterativeError(fit, main = "Iterative Error for 5 Neuron")
+```
+
+```{r message=FALSE, warning=FALSE}
+y <- as.vector(outputs[-test])
+plot(y, type = "l", main = "Comparación de Datos Reales y Predichos", 
+     xlab = "Índice", ylab = "Valores")
+pred <- predict(fit, inputs[-test])
+lines(pred, col = "red")
+legend("topleft", legend = c("Datos Reales", "Datos Predichos"), 
+       col = c("black", "red"), lty = c(1, 1))
+```
+
+```{r message=FALSE, warning=FALSE}
+predictions <- predict(fit,inputs[-train])
+mod2 <- predictions*(max(Z)-min(Z))+min(Z)
+mod2
+```
+
+```{r message=FALSE, warning=FALSE}
+x <- 1:(tamano_total+length(mod2))
+y <- c(as.vector(Z),mod2)
+plot(x[1:tamano_total], y[1:tamano_total],col = "blue", type="l")
+lines( x[(tamano_total):length(x)], y[(tamano_total):length(x)], col="red")
+```
+
+## Estimación del error Comparativo de los modelos con los valores actuales observados.
+
+```{r message=FALSE, warning=FALSE}
+data=veh[99:110,]
+data_real <- ts(data, start = c(2022,3), end=c(2023,02), frequency = 12)
+
+data_real
+```
+
+Para Elman y Jordan al no ser modelos con forecast, lo convertimos en series de tiempo #para que lo acepte el comando accuracy.De tal forma que:
+
+```{r message=FALSE, warning=FALSE}
+mod1[1:12]
+
+```
+```{r message=FALSE, warning=FALSE}
+m1 <- mod1[1:12]
+mod1c <- ts(m1, frequency=12,start=c(2022,3))
+mod1c
+```
+```{r message=FALSE, warning=FALSE}
+m2 <- mod2[1:12]
+mod2c <- ts(m2, frequency=12,start=c(2022,3))
+mod2c
+```
+**ELMAN (RRN)**
+
+```{r message=FALSE, warning=FALSE}
+accuracy(mod1c,data_real)
+```
+**JORDAN**
+
+```{r message=FALSE, warning=FALSE}
+accuracy(mod2c,data_real)
+```
+
+## Conclusiones de modelos de redes neuronales ELMAN y JORDAN.
+
+
+**Para el modelo ELMAN (RRN):**
+
+El error medio (ME) es de 3918.892, indicando una ligera tendencia a subestimar los valores reales en promedio.
+
+El error cuadrático medio (RMSE) es de 8467.508, lo que sugiere una variabilidad considerable entre los valores predichos y los valores reales.
+
+El error absoluto medio (MAE) es de 6560.378, que representa la diferencia promedio entre los valores predichos y los valores reales.
+
+El error porcentual medio (MPE) es de 14.71541, lo que indica una tendencia a subestimar los valores reales en promedio.
+
+El error absoluto porcentual medio (MAPE) es de 32.55703, que representa la diferencia promedio entre los valores predichos y los valores reales en términos porcentuales.
+
+El coeficiente de autocorrelación (ACF1) es de 0.5280143, lo que sugiere cierta correlación entre los valores predichos y los valores reales.
+
+El índice de Theil (Theil's U) es de 3.23668, proporcionando una medida de la relación entre el error de predicción y la variabilidad de los datos reales.
+
+**Para el modelo JORDAN:**
+
+El error medio (ME) es de 2591.269, indicando una ligera tendencia a subestimar los valores reales en promedio.
+
+El error cuadrático medio (RMSE) es de 8999.551, lo que sugiere una mayor variabilidad entre los valores predichos y los valores reales en comparación con el modelo ELMAN.
+
+El error absoluto medio (MAE) es de 7732.16, que representa la diferencia promedio entre los valores predichos y los valores reales.
+
+El error porcentual medio (MPE) es de 8.647962, lo que indica una tendencia a subestimar los valores reales en promedio.
+
+El error absoluto porcentual medio (MAPE) es de 38.0191, que representa una mayor diferencia promedio entre los valores predichos y los valores reales en términos porcentuales en comparación con el modelo ELMAN.
+
+El coeficiente de autocorrelación (ACF1) es de -0.1205701, lo que sugiere una correlación débil o falta de correlación entre los valores predichos y los valores reales.
+
+El índice de Theil (Theil's U) es de 2.92748, proporcionando una medida de la relación entre el error de predicción y la variabilidad de los datos reales.
+
+**En conclusión**, según los resultados presentados, el modelo ELMAN (RRN) muestra un error ligeramente menor en términos de RMSE y MAE en comparación con el modelo JORDAN. También exhibe una correlación más fuerte entre los valores predichos y los valores reales, como se indica por el coeficiente de autocorrelación (ACF1). 
+
+
