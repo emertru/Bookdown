@@ -708,7 +708,7 @@ plot(x[1:tamano_total], y[1:tamano_total],col = "blue", type="l")
 lines( x[(tamano_total):length(x)], y[(tamano_total):length(x)], col="red")
 ```
 
-## Estimación del error Comparativo de los modelos con los valores actuales observados.
+## Estimación del error comparativo de los modelos con los valores actuales observados.
 
 ```{r message=FALSE, warning=FALSE}
 data=veh[99:110,]
