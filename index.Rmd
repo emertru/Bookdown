@@ -429,7 +429,8 @@ Un valor de RMSE más bajo también indica que el modelo ARIMA tiene un mejor aj
 # Modelo Facebook Prophet
 
 El modelo Facebook Prophet es una herramienta útil para el análisis y pronóstico de series de tiempo debido a su facilidad de uso, flexibilidad en la configuración del modelo, capacidad de manejo de tendencias y estacionalidades, robustez ante datos faltantes y anomalías, y la disponibilidad de herramientas de visualización y diagnóstico. Esto lo convierte en una opción popular para aplicaciones prácticas en una amplia gama de sectores, incluyendo finanzas, comercio electrónico, planificación de la demanda, entre otros.
-Para nuestro caso de ventas de vehiculos en Colombia inicimos ajuste del modelo para evaluar rendimeinto:
+
+Para nuestro caso de ventas de vehiculos en Colombia, iniciamos ajuste del modelo para evaluar la predicción con respecto al modelo Arima:
 
 Creamos la serie de tiempo
 ```{r message=FALSE, warning=FALSE}
