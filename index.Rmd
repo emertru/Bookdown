@@ -490,8 +490,8 @@ Calculamos MAE y RMSE para ARIMA
 
 ```{r message=FALSE, warning=FALSE}
 arima_forecast_values <- as.numeric(arima_forecast$mean)
-mae_arima <- mean(abs(arima_forecast_values - veh))
-rmse_arima <- sqrt(mean((arima_forecast_values - veh)^2))
+mae_arima_p <- mean(abs(arima_forecast_values - veh))
+rmse_arima_p <- sqrt(mean((arima_forecast_values - veh)^2))
 ```
 
 Calculamos MAE y RMSE para Prophet
@@ -504,8 +504,8 @@ rmse_prophet <- sqrt(mean((prophet_forecast_ts - veh)^2))
 Imprimimos resultados
 ```{r message=FALSE, warning=FALSE}
 
-cat("ARIMA - MAE:", mae_arima, "\n")
-cat("ARIMA - RMSE:", rmse_arima, "\n")
+cat("ARIMA - MAE:", mae_arima_p, "\n")
+cat("ARIMA - RMSE:", rmse_arima_p, "\n")
 cat("Prophet - MAE:", mae_prophet, "\n")
 cat("Prophet - RMSE:", rmse_prophet, "\n")
 
@@ -781,5 +781,72 @@ El coeficiente de autocorrelación (ACF1) es de -0.1205701, lo que sugiere una c
 El índice de Theil (Theil's U) es de 2.92748, proporcionando una medida de la relación entre el error de predicción y la variabilidad de los datos reales.
 
 **En conclusión**, según los resultados presentados, el modelo ELMAN (RRN) muestra un error ligeramente menor en términos de RMSE y MAE en comparación con el modelo JORDAN. También exhibe una correlación más fuerte entre los valores predichos y los valores reales, como se indica por el coeficiente de autocorrelación (ACF1). 
+
+# Conclusiones Finales
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+
+#Holtwinters Vs Arima
+cat("Holtwinters - MAE:", mae_hw, "\n")
+cat("Holtwinters - RMSE:", rmse_hw, "\n")
+cat("Arima - MAE:", mae_arima, "\n")
+cat("Arima - RMSE:", rmse_arima, "\n")
+
+#Prophet Vs Arima
+cat("Prophet - MAE:", mae_prophet, "\n")
+cat("Prophet - RMSE:", rmse_prophet, "\n")
+cat("Arima - MAE:", mae_arima_p, "\n")
+cat("Arima - RMSE:", rmse_arima_p, "\n")
+
+# Redes Neuronales 
+#ELMAN
+re = accuracy(mod1c, data_real)
+re1 = data.frame(re)
+
+  
+#JORDAN
+rj = accuracy(mod2c,data_real)
+rj1 = data.frame(rj)
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Instalar y cargar la biblioteca DT si no está instalada
+if (!requireNamespace("DT", quietly = TRUE)) {
+  install.packages("DT")
+}
+library(DT)
+
+# Crear un data frame con los resultados
+resultados <- data.frame(
+  Modelo = c("Holtwinters(Holtwinters Vs Arima)", "Arima(Holtwinters Vs Arima)", "Prophet(Prophet Vs Arima)", "Arima(Prophet Vs Arima)", "Redes Neuronales(ELMAN)", "Redes Neuronales(JORDAN)"),
+  MAE = c(mae_hw, mae_arima, mae_prophet, mae_arima_p, re1$MAE, rj1$MAE),
+  RMSE = c(rmse_hw, rmse_arima, rmse_prophet, rmse_arima_p, re1$RMSE, rj1$RMSE)
+)
+
+# Crear una tabla interactiva
+tabla_interactiva <- datatable(resultados, 
+                               options = list(dom = 't',
+                                              paging = FALSE,
+                                              searching = FALSE),
+                               rownames = FALSE)
+
+# Mostrar la tabla interactiva
+tabla_interactiva
+
+```
+
+Conclusiones:
+
+El modelo Holtwinters muestra un MAE de 259.002261122497 y un RMSE de 3263.14370942152. Estos valores indican que el modelo tiene un bajo error absoluto y un nivel aceptable de error cuadrático medio.
+
+El modelo ARIMA muestra un MAE de -155.705787168588 y un RMSE de 2912.71095864194. El valor negativo del MAE puede ser indicativo de un sesgo en las predicciones. Sin embargo, el RMSE es más bajo que en el caso de Holtwinters.
+
+El modelo Prophet muestra un MAE de 2330.4320217824 y un RMSE de 3220.95383127023. Estos valores indican un error relativamente alto en comparación con los modelos anteriores.
+
+En cuanto a las redes neuronales, tanto ELMAN como JORDAN presentan valores de MAE y RMSE bastante altos en comparación con los otros modelos. Esto sugiere que los resultados de las redes neuronales pueden no ser tan precisos como los de Holtwinters y ARIMA en este contexto específico.
+
+En base a estos resultados, podemos concluir que el modelo Holtwinters parece ser el mejor en términos de precisión, ya que tiene el menor MAE y un RMSE aceptable en comparación con los demás modelos evaluados. Sin embargo, es importante considerar el contexto y las características específicas del problema antes de tomar una decisión definitiva sobre el mejor modelo.
 
 

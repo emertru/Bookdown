@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2023-06-18" />
+<meta name="date" content="2023-06-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -190,6 +190,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"><a href="redes-neuronales-recurrentes-modelos-elman-y-jordan.html#estimación-del-error-comparativo-de-los-modelos-con-los-valores-actuales-observados."><i class="fa fa-check"></i><b>8.1</b> Estimación del error comparativo de los modelos con los valores actuales observados.</a></li>
 <li class="chapter" data-level="8.2" data-path="redes-neuronales-recurrentes-modelos-elman-y-jordan.html"><a href="redes-neuronales-recurrentes-modelos-elman-y-jordan.html#conclusiones-de-modelos-de-redes-neuronales-elman-y-jordan."><i class="fa fa-check"></i><b>8.2</b> Conclusiones de modelos de redes neuronales ELMAN y JORDAN.</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="conclusiones-finales.html"><a href="conclusiones-finales.html"><i class="fa fa-check"></i><b>9</b> Conclusiones Finales</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -250,15 +251,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.2</span> Evaluación del Modelo - MAE y RMSE<a href="modelo-facebook-prophet.html#evaluación-del-modelo---mae-y-rmse-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Calculamos MAE y RMSE para ARIMA</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="modelo-facebook-prophet.html#cb39-1" tabindex="-1"></a>arima_forecast_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(arima_forecast<span class="sc">$</span>mean)</span>
-<span id="cb39-2"><a href="modelo-facebook-prophet.html#cb39-2" tabindex="-1"></a>mae_arima <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(arima_forecast_values <span class="sc">-</span> veh))</span>
-<span id="cb39-3"><a href="modelo-facebook-prophet.html#cb39-3" tabindex="-1"></a>rmse_arima <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((arima_forecast_values <span class="sc">-</span> veh)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<span id="cb39-2"><a href="modelo-facebook-prophet.html#cb39-2" tabindex="-1"></a>mae_arima_p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(arima_forecast_values <span class="sc">-</span> veh))</span>
+<span id="cb39-3"><a href="modelo-facebook-prophet.html#cb39-3" tabindex="-1"></a>rmse_arima_p <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((arima_forecast_values <span class="sc">-</span> veh)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <p>Calculamos MAE y RMSE para Prophet</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="modelo-facebook-prophet.html#cb40-1" tabindex="-1"></a>mae_prophet <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(prophet_forecast_ts <span class="sc">-</span> veh))</span>
 <span id="cb40-2"><a href="modelo-facebook-prophet.html#cb40-2" tabindex="-1"></a>rmse_prophet <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((prophet_forecast_ts <span class="sc">-</span> veh)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <p>Imprimimos resultados</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="modelo-facebook-prophet.html#cb41-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;ARIMA - MAE:&quot;</span>, mae_arima, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="modelo-facebook-prophet.html#cb41-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;ARIMA - MAE:&quot;</span>, mae_arima_p, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## ARIMA - MAE: 4910.315</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="modelo-facebook-prophet.html#cb43-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;ARIMA - RMSE:&quot;</span>, rmse_arima, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="modelo-facebook-prophet.html#cb43-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;ARIMA - RMSE:&quot;</span>, rmse_arima_p, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## ARIMA - RMSE: 6504.895</code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="modelo-facebook-prophet.html#cb45-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Prophet - MAE:&quot;</span>, mae_prophet, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## Prophet - MAE: 2330.432</code></pre>

@@ -61,3 +61,4 @@ comparación-de-los-modelos-arima-y-prophet
 redes-neuronales-recurrentes-modelos-elman-y-jordan
 estimación-del-error-comparativo-de-los-modelos-con-los-valores-actuales-observados.
 conclusiones-de-modelos-de-redes-neuronales-elman-y-jordan.
+conclusiones-finales
